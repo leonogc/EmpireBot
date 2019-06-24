@@ -1,5 +1,5 @@
 const castle = require('./castle.js');
-
+/*Teste*/
 exports.selectCommand = (message, args) =>{
     if(args == 'hello'){
         castle.sendMessage(message);
