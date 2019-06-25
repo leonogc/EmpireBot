@@ -1,29 +1,31 @@
 const castle = require('./castle.js');
-const userController = require('./controllers/userController');
+const userCommands = require('./commands/userCommands.js');
 
 exports.selectCommand = (message, args) =>{
-    if(args == 'hello'){
-        castle.sendMessage(message);
+    if(args.startsWith('start')){
+        if(args == 'start'){
+            message.channel.send('Hello Warrior\nNow you need to choose your mainly resource:\n\nWood\nStone\nIron\nFood\n\nTo select yours use\n/emp start <resource>')
+        }
+        else{
+            res = args.substr('start '.length).toLowerCase() ;
+            resources = ['wood', 'stone', 'iron', 'food'];
+            if(resources.includes(res)){
+                userCommands.register(message, res);
+            }
+        }
     }
-    else if(args == 'help'){
-        castle.help(message);
+    if(args.startsWith('castle')){
+        //console.log(message);
+        //console.log(args);
+        userCommands.enemyStats(message, args);
     }
     //console.log(message);
     switch (args) {
         case 'help':
           //
           break;
-        case 'start':
-            user = { 
-                name : message.author.username,
-                discordId: message.author.id,
-                money: 0,
-                resource : args
-            };
-            userController.registerUser(user);
-          //
-          break;
         case 'stats':
+            userCommands.userStats(message);
           //
           break;
         case 'quest':
