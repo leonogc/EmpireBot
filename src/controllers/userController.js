@@ -34,3 +34,45 @@ exports.findById = async (discordId) => {
         return console.log(err);
     }
 }
+
+exports.claimResource = async (user, time_now, times) => {
+    try{
+        resourceLevel = [10,15,20];
+        condition = { _id : user.id};
+        user.claimDate = time_now;
+        switch(user.resource){
+            case 'wood':
+                user.wood = user.wood + (resourceLevel[(user.empireLevel-1)]*times);
+                //
+                break;
+            case 'stone':
+                user.stone = user.stone + (resourceLevel[(user.empireLevel-1)]*times);
+                //
+                break;
+            case 'iron':
+                user.iron = user.iron + (resourceLevel[(user.empireLevel-1)]*times);
+                //
+                break;
+            case 'food':
+                user.food = user.food + (resourceLevel[(user.empireLevel-1)]*times);
+                //
+                break;
+        }
+        resp = await User.updateOne(condition, user);
+        return true;
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+exports.updateUser = async (user) =>{
+    try{
+        condition = { _id: user.id};
+        resp = await User.updateOne(condition, user);
+        return true;
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}

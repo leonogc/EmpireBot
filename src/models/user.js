@@ -41,6 +41,12 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         require: true,
     },
+    claimDate:{
+        type: String
+    },
+    empireLevel:{
+        type: Number
+    }
 });
 
 const User = mongoose.model('User', UserSchema);
