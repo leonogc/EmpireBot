@@ -1,16 +1,13 @@
 const castle = require('./castle.js');
 const userController = require('./controllers/userController');
+const msgHelp = require('./commands/help.js');
 
-exports.selectCommand = (message, args) =>{
-    if(args == 'hello'){
-        castle.sendMessage(message);
-    }
-    else if(args == 'help'){
-        castle.help(message);
-    }
+exports.selectCommand = (message, args, client) =>{
+    
     //console.log(message);
     switch (args) {
         case 'help':
+            msgHelp.helpMessage(message, client);
           //
           break;
         case 'start':
@@ -53,7 +50,7 @@ exports.selectCommand = (message, args) =>{
         case 'sell <resource>':
             //
             break;
-        case 'gsc <recurso> <preco>':
+        case 'gm <recurso> <preco>':
             //
             break;
         case 'recruit <type> <qtd>':

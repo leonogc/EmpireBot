@@ -5,13 +5,14 @@ const commands = require('./src/commands.js')
 const client = new Discord.Client();
 
 client.once('ready', () => {
-	console.log('Bot is online!');
+    console.log('Bot is online!');
+    client.user.setActivity("Spanish Inquisition",{type: "WATCHING"});
 });
 
 client.on('message', message => {
     if(message.content.startsWith(prefix)){
         const args = message.content.substr(prefix.length);
-        commands.selectCommand(message, args);
+        commands.selectCommand(message, args, client);
     }
 })
 
