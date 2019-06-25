@@ -1,5 +1,6 @@
 const castle = require('./castle.js');
-/*Teste*/
+const userController = require('./controllers/userController');
+
 exports.selectCommand = (message, args) =>{
     if(args == 'hello'){
         castle.sendMessage(message);
@@ -7,12 +8,19 @@ exports.selectCommand = (message, args) =>{
     else if(args == 'help'){
         castle.help(message);
     }
-    console.log(message);
+    //console.log(message);
     switch (args) {
         case 'help':
           //
           break;
         case 'start':
+            user = { 
+                name : message.author.username,
+                discordId: message.author.id,
+                money: 0,
+                resource : args
+            };
+            userController.registerUser(user);
           //
           break;
         case 'stats':
