@@ -63,9 +63,6 @@ exports.selectCommand = (message, args, client) =>{
         case 'recruit <type> <qtd>':
             //
             break;
-        case 'plant <semente>':
-            //
-            break;
         case 'expandEmpire':
             //
             break;
@@ -76,6 +73,7 @@ exports.selectCommand = (message, args, client) =>{
             //
             break;
         default:
+            msgHelp.CNRMessage(message);
           //Instruções executadas quando o valor da expressão é diferente de todos os cases
           break;
       }

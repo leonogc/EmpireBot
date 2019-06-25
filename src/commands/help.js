@@ -1,13 +1,19 @@
 const disc = require("discord.js");
+
 exports.helpMessage = (msg, client) => {
     const embed = new disc.RichEmbed()
     .setAuthor(client.users.values().next().value.username,client.users.values().next().value.avatarURL)
     .setTitle("Help")
     .setDescription(comms)
     .setColor("#F65A7D")
-    .setFooter('@EmpireBot '+ new Date());
+    .setFooter('@EmpireBot | '+ new Date());
 
     msg.channel.send(embed);
+}
+
+//Command Not Recognized -> CNR
+exports.CNRMessage = (message) =>{
+    message.channel.send(":x: Command Not Recognized!");
 }
 
 
