@@ -17,6 +17,30 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    wood:{
+        type: Number,
+        require: true,
+    },
+    stone:{
+        type: Number,
+        require: true,
+    },
+    iron:{
+        type: Number,
+        require: true,
+    },
+    food:{
+        type: Number,
+        require: true,
+    },
+    soldiers:{
+        type: Number,
+        require: true,
+    },
+    archers:{
+        type: Number,
+        require: true,
+    },
 });
 
 const User = mongoose.model('User', UserSchema);
