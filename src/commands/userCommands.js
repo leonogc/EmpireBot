@@ -1,5 +1,4 @@
 const userController = require('../controllers/userController.js');
-const User = require('../models/user');
 
 exports.register = async (message, res) =>{
     exists = await userController.userExists(message.author.id);
@@ -15,6 +14,8 @@ exports.register = async (message, res) =>{
             food : 0,
             soldiers : 0,
             archers : 0,
+            claimDate : null,
+            empireLevel: 1
         };
         userController.registerUser(user);
         message.channel.send(`${user.name} you choose ${user.resource}`);
@@ -52,10 +53,28 @@ exports.enemyStats = async (message, args) => {
 
     user = await userController.findById(discordId);
     if(user == null){
-        message.channel.send('No User Found');
+        return message.channel.send('No User Found');
     }else{
         message.channel.send(`${user.name}\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\n\n
         Resources:\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}\n\n
         Availible to Loot:\nWood: ${Math.floor(user.wood/10)}\nStone: ${Math.floor(user.stone/10)}\nIron: ${Math.floor(user.iron/10)}\nFood: ${Math.floor(user.food/10)}`);
+    }
+}
+
+exports.claim = async (message) =>{
+    user = await userController.findById(message.author.id);
+    if(user == null){
+        return message.channel.send('No User Found');
+    }
+    time_now = new Date().getTime();
+    if(user.claimDate == null || user.claimDate == ""){
+        resp = await userController.claimResource(user, time_now, 1);
+        if(resp){
+            return message.channel.send(`You've claimed your resource`);
+        }else{
+            return message.channel.send('Try again Later');
+        }
+    }else{
+        console.log(user.claimDate);
     }
 }

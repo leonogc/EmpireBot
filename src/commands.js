@@ -66,6 +66,10 @@ exports.selectCommand = (message, args, client) =>{
             case 'expandEmpire':
                 //
                 break;
+            case 'claim':
+                userCommands.claim(message);
+                //
+                break;
             default:
                     msgHelp.CNRMessage(message);
               //Instruções executadas quando o valor da expressão é diferente de todos os cases
