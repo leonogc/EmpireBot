@@ -35,7 +35,20 @@ exports.userStats = async (message) => {
 }
 
 exports.enemyStats = async (message, args) => {
-    discordId = (String(args).substring(String(args).indexOf('!')+1, String(args).length-1));
+    const ver = args.split(" ");
+    //console.log(ver);
+    if(ver.length != 1){
+        if(args.includes('!')){
+            discordId = (String(args).substring(String(args).indexOf('!')+1, String(args).length-1));    
+        }
+        else{
+            discordId = (String(args).substring(String(args).indexOf('@')+1, String(args).length-1));
+        }
+    }
+    else{
+       discordId = message.author.id;
+    }
+    //console.log(discordId);
 
     user = await userController.findById(discordId);
     if(user == null){
