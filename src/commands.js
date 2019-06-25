@@ -1,7 +1,8 @@
 const castle = require('./castle.js');
+const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
 
-exports.selectCommand = (message, args) =>{
+exports.selectCommand = (message, args, client) =>{
     if(args.startsWith('start')){
         if(args == 'start'){
             message.channel.send('Hello Warrior\nNow you need to choose your mainly resource:\n\nWood\nStone\nIron\nFood\n\nTo select yours use\n/emp start <resource>')
@@ -22,6 +23,7 @@ exports.selectCommand = (message, args) =>{
     //console.log(message);
     switch (args) {
         case 'help':
+            msgHelp.helpMessage(message, client);
           //
           break;
         case 'stats':
@@ -55,7 +57,7 @@ exports.selectCommand = (message, args) =>{
         case 'sell <resource>':
             //
             break;
-        case 'gsc <recurso> <preco>':
+        case 'gm <recurso> <preco>':
             //
             break;
         case 'recruit <type> <qtd>':
