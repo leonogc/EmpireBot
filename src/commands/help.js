@@ -22,7 +22,7 @@ const comms =   '```fix\n'+
                 '**start** - Starts a new Empire\n '+
                 '**castle** - Shows your resources and your attack and defense power\n '+
                 '**castle <nick>** - Shows another player\'s available loot and attack and defense power\n '+
-                '**expandEmpire** - Shows necessary resources to expand your empire. If possible, asks if you really want to do it.\n '+
+                '**expandempire** - Shows necessary resources to expand your empire. If possible, asks if you really want to do it.\n '+
                 '**help** - List all commands\n '+
                 '**stats** - List user statistics\n\n'+
 

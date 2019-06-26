@@ -63,7 +63,7 @@ exports.selectCommand = (message, args, client) =>{
             case 'recruit <type> <qtd>':
                 //
                 break;
-            case 'expandEmpire':
+            case 'expandempire':
                 //
                 break;
             case 'claim':
