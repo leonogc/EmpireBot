@@ -3,10 +3,7 @@ const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
 const market = require('./commands/market.js')
 
-exports.selectCommand = (message, args, client) =>{
-    if(args.includes(" ")){
-        args=args.substring(0,args.indexOf(" "));
-    }  
+exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('start')){
         if(args == 'start'){
             message.channel.send('Hello Warrior\nNow you need to choose your mainly resource:\n\nWood\nStone\nIron\nFood\n\nTo select yours use\n/emp start <resource>')
@@ -23,6 +20,14 @@ exports.selectCommand = (message, args, client) =>{
         //console.log(message);
         //console.log(args);
         userCommands.enemyStats(message, args);
+    }
+    else if(args.startsWith('buy'))
+    {
+        market.buyMarket(message,args)
+    }
+    else if(args.startsWith('sell'))
+    {
+        market.sellMarket(message,args)
     }
     else{
         switch (args) {
@@ -52,14 +57,8 @@ exports.selectCommand = (message, args, client) =>{
             case 'ctrade <nick>':
                 //
                 break;
-            case 'buy':
-                market.buyMarket(message,args)
-                break;
             case 'market':
                 market.botMarket(message,client)
-                break;
-            case 'sell':
-                market.sellMarket(message,args)
                 break;
             case 'gm <recurso> <preco>':
                 //
