@@ -75,7 +75,18 @@ exports.claim = async (message) =>{
             return message.channel.send('Try again Later');
         }
     }else{
-        console.log(user.claimDate);
+        oldClaim = Number(user.claimDate);
+        diff = ((time_now - (new Date(Number(oldClaim)).getTime())) / 1000 / 60);
+        times = Math.floor(diff/5);
+        if(times <= 0){
+            return message.channel.send(`You can't claim right now, wait 5 minutes`);
+        }
+        resp = await userController.claimResource(user, time_now, times);
+        if(resp){
+            return message.channel.send(`You're loyal Duke got your resources ${times} times while you were not here`);
+        }else{
+            return message.channel.send('Try again Later');
+        }
     }
 }
 
