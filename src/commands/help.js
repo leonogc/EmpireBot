@@ -6,7 +6,8 @@ exports.helpMessage = (msg, client) => {
     .setTitle("Help")
     .setDescription(comms)
     .setColor("#F65A7D")
-    .setFooter('@EmpireBot | '+ new Date());
+    .setFooter('@EmpireBot')
+    .setTimestamp(msg.createdAt);
 
     msg.channel.send(embed);
 }
@@ -28,17 +29,17 @@ const comms =   '```fix\n'+
 
                 '```css\n'+
                 '#Market ```\n'+
-                '**buy <resource>** - Buy from merchant (Bot)\n'+
+                '**buy <resource> <quantity>** - Buy from merchant (Bot)\n'+
                 '**trade <nick> <resource> <quantity> <resource2> <quantity2>** -Starts a trade with another player \n'+
                 '**ctrade <nick>**  - Confirms a trade proposal\n '+
                 '**gm <resource> <price>** -  Adds a product in the global market\n ' +
                 '**market** - Opens the bot store\n '+
-                '**sell <resource>** - sell the resource to the merchant\n\n'+
+                '**sell <resource> <quantity>** - sell the resource to the merchant\n\n'+
 
                 '```cs\n'+
                 '#Inquisition ```\n'+
-                '**loot** - Invades the bot\'s castle\n '+
-                '**loot <user>** - Invades the user\'s castle\n '+
+                '**battle** - Invades the bot\'s castle\n '+
+                '**battle <user>** - Invades the user\'s castle\n '+
                 '**quest** - List of active quests\n '+
                 '**recruit <type> <qtd>** - recruit soldiers in exchange for resources\n ';
                
