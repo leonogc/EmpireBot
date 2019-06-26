@@ -78,3 +78,51 @@ exports.claim = async (message) =>{
         console.log(user.claimDate);
     }
 }
+
+exports.expandEmpire = async (message,args) => {
+    const discordId = message.author.id;
+    user = await userController.findById(discordId);
+    
+    /* Resources consumed to upgrade
+    1º - Money, Wood, Stone, Iron, Food.
+    2º - Money, Wood, Stone, Iron, Food.
+
+    Expand function: Math.pow(2,empireLevel) * 40;
+    */
+
+    if(user == null){
+        message.channel.send('No User Found');
+    }else{
+        let {money, wood, stone, iron, food, empireLevel} = user;
+        const resourceNeeded = [160,320];   
+        //console.log(empireLevel);
+        
+        if(empireLevel < 3){
+            if(compare(money,resourceNeeded[empireLevel-1]) && compare(wood,resourceNeeded[empireLevel-1]) && compare(stone,resourceNeeded[empireLevel-1]) && compare(iron,resourceNeeded[empireLevel-1]) && compare(food,resourceNeeded[empireLevel-1])){
+                        
+                user.money = ((money/100) - resourceNeeded[empireLevel-1])*100;
+                user.wood -= resourceNeeded[empireLevel-1];
+                user.stone -= resourceNeeded[empireLevel-1];
+                user.iron -= resourceNeeded[empireLevel-1]; 
+                user.food -= resourceNeeded[empireLevel-1];
+                user.empireLevel += 1;
+                userController.updateUser(user);
+                message.channel.send(`${resourceNeeded[empireLevel-1]} resources consumed. Now your empire is level ${user.empireLevel}`);
+                return;
+            }
+            message.channel.send(`Not enough resources. You need at least ${resourceNeeded[empireLevel-1]} of each to upgrade!`);
+        }
+        else{
+            message.channel.send("You've reached the max level.");
+        }
+    }
+}
+
+function compare(UserValue, MinValue){
+    if(UserValue >= MinValue){
+        return true;
+    }
+    else{
+        return false;
+    }
+}

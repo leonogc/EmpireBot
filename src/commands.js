@@ -64,6 +64,7 @@ exports.selectCommand = (message, args, client) =>{
                 //
                 break;
             case 'expandempire':
+                    userCommands.expandEmpire(message,args);
                 //
                 break;
             case 'claim':
