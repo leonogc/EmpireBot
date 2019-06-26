@@ -14,6 +14,9 @@ exports.register = async (message, res) =>{
             food : 0,
             soldiers : 0,
             archers : 0,
+            armor : 0,
+            sword : 0,
+            bow : 0,
             claimDate : null,
             empireLevel: 1
         };
@@ -29,8 +32,10 @@ exports.userStats = async (message) => {
     if(user == null){
         message.channel.send('No User Found');
     }else{
-        message.channel.send(`${user.name}\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\n\n
-        Resources:\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}`);
+        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\n\n
+        **Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
+        **Armament**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
+        **Army**\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}`);
     }
 
 }
@@ -55,9 +60,11 @@ exports.enemyStats = async (message, args) => {
     if(user == null){
         return message.channel.send('No User Found');
     }else{
-        message.channel.send(`${user.name}\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\n\n
-        Resources:\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}\n\n
-        Availible to Loot:\nWood: ${Math.floor(user.wood/10)}\nStone: ${Math.floor(user.stone/10)}\nIron: ${Math.floor(user.iron/10)}\nFood: ${Math.floor(user.food/10)}`);
+        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\n\n
+        **Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
+        **Armament:**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
+        **Army:**\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}\n\n
+        **Availible to Loot:**\nWood: ${Math.floor(user.wood/10)}\nStone: ${Math.floor(user.stone/10)}\nIron: ${Math.floor(user.iron/10)}\nFood: ${Math.floor(user.food/10)}`);
     }
 }
 

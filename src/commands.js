@@ -2,6 +2,7 @@ const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
 const market = require('./commands/market.js')
+const craft = require('./commands/craft.js')
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('start')){
@@ -29,6 +30,10 @@ exports.selectCommand = (message, args, client) =>{
     {
         market.sellMarket(message,args)
     }
+    else if(args.startsWith('craft') && args.includes(" ") && args.length>5)
+    {
+        craft.craft(message,args)
+    } 
     else{
         switch (args) {
             case 'help':
@@ -48,8 +53,8 @@ exports.selectCommand = (message, args, client) =>{
             case 'loot <user>':
                 //
                 break; 
-            case 'sell <nick>':
-                //
+            case 'craft':
+                craft.craftList(message,client);
                 break;
             case 'trade <nick> <resource> <qtd> <resource2> <qtd2>':
                 //
@@ -58,7 +63,7 @@ exports.selectCommand = (message, args, client) =>{
                 //
                 break;
             case 'market':
-                market.botMarket(message,client)
+                market.botMarket(message,client);
                 break;
             case 'gm <recurso> <preco>':
                 //

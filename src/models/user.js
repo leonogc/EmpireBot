@@ -46,6 +46,18 @@ const UserSchema = new mongoose.Schema({
     },
     empireLevel:{
         type: Number
+    },
+    armor:{
+        type: Number,
+        require: true,
+    },
+    sword:{
+        type: Number,
+        require: true,
+    },
+    bow:{
+        type: Number,
+        require: true,
     }
 });
 

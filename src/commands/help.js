@@ -41,7 +41,11 @@ const comms =   '```fix\n'+
                 '**battle** - Invades the bot\'s castle\n '+
                 '**battle <user>** - Invades the user\'s castle\n '+
                 '**quest** - List of active quests\n '+
-                '**recruit <type> <qtd>** - recruit soldiers in exchange for resources\n ';
+                '**recruit <type> <qtd>** - recruit soldiers in exchange for resources\n '+
+                '```diff\n'+
+                '#Craft ```\n'+
+                '**craft <resource> <quantity>** - Craft a armament\n'+
+                '**craft** - Display a list of crafts \n';
                
                
                
