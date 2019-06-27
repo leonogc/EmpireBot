@@ -1,14 +1,11 @@
 const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
-<<<<<<< HEAD
-const market = require('./commands/market.js')
+const globalMarketCommands = require('./commands/globalMarketCommands.js');
 const canvas =require('./commands/canvas.js')
-=======
 const market = require('./commands/market.js');
 const craft = require('./commands/craft.js');
 const recruit = require('./commands/recruit.js');
->>>>>>> 1f924422ddace16ad06989dcfc6775465ea1ccf7
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('battle')){
@@ -40,6 +37,9 @@ exports.selectCommand = (message, args, client) =>{
     else if(args.startsWith('sell'))
     {
         market.sellMarket(message,args)
+    }
+    else if(args.startsWith('gm')){
+        globalMarketCommands.GlobalMarket(message, args, client);
     }
     else if(args.startsWith('craft') && args.includes(" ") && args.length>5)
     {
