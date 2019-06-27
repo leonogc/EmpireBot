@@ -40,10 +40,6 @@ exports.selectCommand = (message, args, client) =>{
     {
         market.sellMarket(message,args)
     }
-    else if(args.startsWith('trade'))
-    {
-        trade.tradeMessage(message,args);
-    }
     else if(args.startsWith('gm')){
         globalMarketCommands.GlobalMarket(message, args, client);
     }
@@ -54,7 +50,10 @@ exports.selectCommand = (message, args, client) =>{
     else if(args.startsWith('recruit') && args.includes(" ") && args.length>5)
     {
         recruit.recruit(message,args);
-
+    }
+    else if(args.startsWith('trade'))
+    {
+        trade.tradeMessage(message,args);
     }
     else{
         switch (args) {
@@ -78,12 +77,6 @@ exports.selectCommand = (message, args, client) =>{
             case 'craft':
                 craft.craftList(message,client);
                 break;
-            /*case 'trade <nick> <resource> <qtd> <resource2> <qtd2>':
-                //
-                break;
-            case 'ctrade <nick>':
-                //
-                break;*/
             case 'market':
                 market.botMarket(message,client);
                 break;
