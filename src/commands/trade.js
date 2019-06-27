@@ -1,21 +1,21 @@
 const disc = require("discord.js");
 const userController = require("../controllers/userController.js");
 
-exports.tradeMessage = (message, args) => {
+exports.tradeMessage = (message, args) => { //Called after /emp trade <mention> <quantity1> <resource1> <quantity2> <resource2>
     
     const res = args.split(' ');
-    const tradable = [`wood`,`stone`,`iron`,`food`,`sword`,`armor`,`bow`];
-    const quantof = parseInt(res[2]);
-    const quantwa = parseInt(res[4]);
-    const offered = res[3];
-    const wanted = res[5];
-    // Create a reaction collector
+    const tradable = [`wood`,`stone`,`iron`,`food`,`sword`,`armor`,`bow`];//List of tradable resources
+    const quantof = parseInt(res[2]);//<quantity1>
+    const quantwa = parseInt(res[4]);//<quantity2>
+    const offered = res[3];//<resource1>
+    const wanted = res[5];//<resource2>
+    // Create a reaction filter
     const filter = (reaction, user) => ['✅','❌'].includes(reaction.emoji.name) && user.id === message.mentions.members.first().user.id;
 
-    if(!isNaN(quantof) && !isNaN(quantwa) && offered != undefined && wanted != undefined){
-        if(tradable.includes(offered) && tradable.includes(wanted))
+    if(!isNaN(quantof) && !isNaN(quantwa) && offered != undefined && wanted != undefined){ //Checks if the values are correct
+        if(tradable.includes(offered) && tradable.includes(wanted)) //See if the <resource1> <resource2> are in the tradable list
         {
-            try{
+            try{ //Send message
                 let embed = new disc.RichEmbed()
                 .setAuthor(message.author.username)
                 .setColor('#AF33aa')
@@ -32,16 +32,15 @@ exports.tradeMessage = (message, args) => {
                         .then(()=>{
                             msg.react('❌');
                         });
-                        ///// AWAIT Reactions
+                        ///// AWAIT Reactions - it waits 15 sec to collect the reaction
                         msg.awaitReactions(filter, { time: 15000 })
                             .then(collected => {
-                                //console.log(`Collected ${collected.size} reactions`)
-                                //console.log(collected);
+                
                                 const reaction = collected.first();
 
-                                if (reaction.emoji.name === '✅') {
+                                if (reaction.emoji.name === '✅') { //Accept
                                     acceptTrade(message,message.mentions.members.first().user.id,quantof,quantwa,offered,wanted);
-                                } else {
+                                } else { //Deny
                                     denyTrade(message);
                                 }
                                 
@@ -66,37 +65,35 @@ exports.tradeMessage = (message, args) => {
 
 }
 
-// /emp trade @JapaNegro#6079 30 wood 30 iron
-
+//Operation to accept the trade. 
 async function acceptTrade(message,targetId,quantof,quantwa,offered,wanted){
-    let userMain = await userController.findById(message.author.id);
-    let guest = await userController.findById(targetId);
+    let userMain = await userController.findById(message.author.id); //Get who made the offer
+    let guest = await userController.findById(targetId); //The one answering the offer
 
-    var quantityResourceOf = await userController.findResQuant(userMain,offered);
-    quantityResourceOf = transformsToInt(quantityResourceOf);
+    var quantityResourceOf = await userController.findResQuant(userMain,offered); //Get the quantity of the resource offered
+    quantityResourceOf = transformsToInt(quantityResourceOf); //Transforms the json object retrieved to int value
     
-    var quantityResourceWa = await userController.findResQuant(guest,wanted);
-    quantityResourceWa = transformsToInt(quantityResourceWa);
+    var quantityResourceWa = await userController.findResQuant(guest,wanted);//Get the quantity of the resource wanted
+    quantityResourceWa = transformsToInt(quantityResourceWa);//Transforms the json object retrieved to int value
     
-    if(compareQuantity(userMain,offered,quantof) && compareQuantity(guest,wanted,quantwa)){
-        await changeValue(message,userMain,offered,quantof,'substract');
-        await changeValue(message,guest,wanted,quantwa,'substract');
+    if(compareQuantity(userMain,offered,quantof) && compareQuantity(guest,wanted,quantwa)){ //Checks if the trade values are less then what they have
+        await changeValue(message,userMain,offered,quantof,'substract'); //Subtract the traded resouces
+        await changeValue(message,guest,wanted,quantwa,'substract'); //Subtract the traded resouces
 
-        userMain = await userController.findById(message.author.id);
-        guest = await userController.findById(targetId)
+        userMain = await userController.findById(message.author.id); //Find the user again to update it's resources
+        guest = await userController.findById(targetId) //Find the user again to update it's resources
         .then(() => {                
-            changeValue(message,guest,offered,quantof,'add');
-            changeValue(message,userMain,wanted,quantwa,'add');
+            changeValue(message,guest,offered,quantof,'add'); //Add the traded resouces
+            changeValue(message,userMain,wanted,quantwa,'add')//Add the traded resouces
+            .then(()=>{
+                message.reply(`${message.mentions.members.first().user.username} accepted your trade offer`);
+            });
         });
     }
     else{
         message.channel.send(`One of you doesn't have enough resources.`);
         return;
-    }
-    //console.log(quantityResourceOf);
-    //console.log(quantityResourceWa);
-    
-    message.reply(`${message.mentions.members.first().user.username} accepted your trade offer`);
+    }   
 }
 
 //Message to deny the trade
@@ -106,14 +103,14 @@ function denyTrade(message){
 
 //Transforms the bd return to int
 function transformsToInt(quantity){
-    quantity = quantity.toString().substring(1,quantity.toString().length-1).trim();
-    quantity = quantity.split(":");
-    return quantity = parseInt(quantity[1].trim());
+    quantity = quantity.toString().substring(1,quantity.toString().length-1).trim(); //transforms this, e.g.-> { wood: 1233 } into this -> wood: 1233
+    quantity = quantity.split(":"); //Get the previous string and split -> ['wood','1233']
+    return parseInt(quantity[1].trim()); // returns the int value of the second position of the array
 }
 
 //Compare the quantity of resources
 function compareQuantity(user,resource,tradeQuantity){
-    switch(resource)
+    switch(resource) //Checks what resource is being trade and see if the trade values are less then what the user has
     {
         case 'wood':
                 UserValue = user.wood;

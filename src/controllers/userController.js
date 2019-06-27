@@ -77,7 +77,7 @@ exports.updateUser = async (user) =>{
     }
 }
 
-exports.findResQuant = async(user, resource) => {
+exports.findResQuant = async(user, resource) => { //Receive the user and the resource. returns the resource. 'SELECT <resource> FROM user WHERE _id = user.id'
     try{
         condition = { _id: user.id};
         switch(resource)
