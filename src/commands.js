@@ -1,7 +1,8 @@
 const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
-const market = require('./commands/market.js')
+const market = require('./commands/market.js');
+const trade = require('./commands/trade.js');
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('start')){
@@ -29,6 +30,10 @@ exports.selectCommand = (message, args, client) =>{
     {
         market.sellMarket(message,args)
     }
+    else if(args.startsWith('trade'))
+    {
+        trade.tradeMessage(message,args);
+    }
     else{
         switch (args) {
             case 'help':
@@ -51,12 +56,12 @@ exports.selectCommand = (message, args, client) =>{
             case 'sell <nick>':
                 //
                 break;
-            case 'trade <nick> <resource> <qtd> <resource2> <qtd2>':
+            /*case 'trade <nick> <resource> <qtd> <resource2> <qtd2>':
                 //
                 break;
             case 'ctrade <nick>':
                 //
-                break;
+                break;*/
             case 'market':
                 market.botMarket(message,client)
                 break;
