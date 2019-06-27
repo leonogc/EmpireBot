@@ -2,6 +2,7 @@ const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
 const market = require('./commands/market.js')
+const globalMarketCommands = require('./commands/globalMarketCommands.js');
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('start')){
@@ -28,6 +29,9 @@ exports.selectCommand = (message, args, client) =>{
     else if(args.startsWith('sell'))
     {
         market.sellMarket(message,args)
+    }
+    else if(args.startsWith('gm')){
+        globalMarketCommands.GlobalMarket(message, args, client);
     }
     else{
         switch (args) {
