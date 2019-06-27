@@ -25,7 +25,8 @@ exports.recruitList = (msg,client) =>
 exports.recruit = async (msg,args) =>
 {
     userc = await usercontroller.findById(msg.author.id);
-    space =  args.split(" ");
+    lower = args.toLowerCase();
+    space =  lower.split(" ");
     soldier = space[1].toString();
         if(space.length == 3){    
             qtd =parseInt(space[2]);

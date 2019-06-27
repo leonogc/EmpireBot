@@ -27,8 +27,8 @@ exports.craftList = (msg,client) =>
 exports.craft = async (msg,args) =>
 {
     userc = await usercontroller.findById(msg.author.id);
-    space =  args.split(" ");
-    resource = space[1].toString();
+    lower = args.toLowerCase();
+    space =  lower.split(" ");    resource = space[1].toString();
         if(space.length == 3){    
             qtd =parseInt(space[2]);
             if(!isNaN(qtd))

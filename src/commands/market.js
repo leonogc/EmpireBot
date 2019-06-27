@@ -47,7 +47,8 @@ exports.sellMarket = async (msg,args) =>
     {
         userc = await userController.findById(msg.author.id);
         money = userc.money/100;
-        space =  args.split(" ");
+        lower = args.toLowerCase();
+        space =  lower.split(" ");
         if(space.length>=2){
             resource = space[1].toString();
             if(space.length == 3){
@@ -193,7 +194,8 @@ exports.sellMarket = async (msg,args) =>
     {
         userc = await userController.findById(msg.author.id);
         money = userc.money/100;
-        space =  args.split(" ");
+        lower = args.toLowerCase();
+        space =  lower.split(" ");
         if(space.length>=2){
             resource = space[1].toString();
             if(space.length == 3){
