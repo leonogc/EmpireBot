@@ -69,53 +69,19 @@ exports.tradeMessage = (message, args) => {
 
 // /emp trade @JapaNegro#6079 30 wood 30 iron
 
-///// AWAIT Reactions
-/*msg.awaitReactions(filter, { time: 15000 })
-                            .then(collected => {
-                                //console.log(`Collected ${collected.size} reactions`)
-                                //console.log(collected);
-                                const reaction = collected.first();
-
-                                if (reaction.emoji.name === '✅') {
-                                    //acceptTrade(message,args);
-                                    message.channel.send("sim");
-                                } else {
-                                    //denyTrade(message);
-                                    message.channel.send("não");
-                                }
-                                
-                            })
-                            .catch( (err) => {
-                                //message.reply('you reacted with neither a yes or no. Canceling the trade.');
-                                console.log(err);
-                                
-                            });*/
-
-
-
-/*const colector = msg.createReactionCollector(filter, {time: 15000});
-
-                        colector.on('collect', r => {
-                            console.log(r);
-                            console.log("///////////////////////////\n\n");
-                            const reaction = r.message.reactions;
-                            console.log(reaction);
-                            console.log("///////////////////////////");
-                                
-                                if (reaction.emoji.name === '✅') {
-                                    //acceptTrade(message,args);
-                                    message.channel.send("sim");
-                                } else {
-                                    //denyTrade(message);
-                                    message.channel.send("não");
-                                }
-                        }); */
-
 async function acceptTrade(message,targetId,quantof,quantwa,offered,wanted){
-    userMain = await userController.findById(message.author.id);
-    guest = await userController.findById(targetId);
+    let userMain = await userController.findById(message.author.id);
+    let guest = await userController.findById(targetId);
 
-     
+    changeValue(message,userMain,offered,quantof,'substract');
+    changeValue(message,guest,wanted,quantwa,'substract') 
+
+    userMain = await userController.findById(message.author.id);
+    guest = await userController.findById(targetId)
+    .then(() => {                
+        changeValue(message,guest,offered,quantof,'add');
+        changeValue(message,userMain,wanted,quantwa,'add');
+    });
     
     message.reply(`${message.mentions.members.first().user.username} accepted your trade offer`);
 }
@@ -123,4 +89,184 @@ async function acceptTrade(message,targetId,quantof,quantwa,offered,wanted){
 function denyTrade(message){
     message.reply(`${message.mentions.members.first().user.username} rejected your trade offer`);
 }
-/// /emp trade @EmpireBot#7392 30 iron 30 wood
+
+//operation -> add = add to user resources;  substract = substract the user resources
+async function changeValue(msg,user,resource,quantity,operation){
+
+    if(operation == 'add')
+    {
+        switch(resource)
+        {
+            case 'wood':
+                    user.wood = user.wood+quantity;
+                    resp = await userController.updateUser(user);;
+                    if(resp){
+                        return msg.channel.send(`${quantity} woods were added\n ${user.name}, you now have ${user.wood} woods` );
+                    }
+                    msg.channel.send(`Not enough ${resource}`);
+                    throw new error("Not enough resource");
+            break;   
+            case 'stone':                           
+                    user.stone = user.stone+quantity;
+                    resp = await userController.updateUser(user);;
+                    
+                    if(resp){
+                        return msg.channel.send(`${quantity} stones were added\n  ${user.name}, you now have ${user.stone} stones` );
+                    }
+                    return msg.channel.send(`Not enough ${resource}`);
+            break;  
+            case 'food':
+                    user.food = user.food+quantity;
+                    resp = await userController.updateUser(user);;
+                    if(resp){
+                        return msg.channel.send(`${quantity} food were added\n  ${user.name}, you now have ${user.food} foods` );
+                    }
+                    return msg.channel.send(`Not enough ${resource}`);
+            break; 
+            case 'iron':
+                    user.iron = user.iron+quantity;
+                    resp = await userController.updateUser(user);;
+                    if(resp){
+                        return msg.channel.send(`${quantity} irons were added\n  ${user.name}, you now have ${user.iron} irons` );
+                    }
+                    return msg.channel.send(`Not enough ${resource}`);
+            break; 
+            case 'sword':
+                    user.sword = user.sword+quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        return msg.channel.send(`${quantity} swords were added\n  ${user.name}, you now have ${user.sword} swords` );
+                    }
+                    return msg.channel.send(`Not enough ${resource}`);
+            break; 
+            case 'bow':
+                    user.bow = user.bow+quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        return msg.channel.send(`${quantity} bows were added\n  ${user.name}, you now have ${user.bow} bows` );
+                    }
+                    return msg.channel.send(`Not enough ${resource}`);
+            break; 
+            case 'armor':
+                    user.armor = user.armor+quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        return msg.channel.send(`${quantity} armors were added\n  ${user.name}, you now have ${user.armor} armors` );
+                    }
+                    return msg.channel.send(`Not enough ${resource}`);
+            break; 
+            default:
+                    msg.channel.send("Unable to find this resource ");
+            break;
+        }
+    }
+    else if(operation == 'substract'){
+        switch(resource)
+        {
+            case 'wood':
+                if(quantity<=user.wood)
+                {
+                    user.wood = user.wood-quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        msg.channel.send(`${quantity} woods were substracted\n  ${user.name}, you now have ${user.wood} woods` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break;   
+            case 'stone':                           
+                if(quantity<=user.stone)
+                {
+                    user.stone = user.stone-quantity;
+                    resp = await userController.updateUser(user);
+                    
+                    if(resp){
+                        msg.channel.send(`${quantity} stones were substracted\n  ${user.name}, you now have ${user.stone} stones` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break;  
+            case 'food':
+                if(quantity<=user.food)
+                {
+                    user.food = user.food-quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        msg.channel.send(`${quantity} food were substracted\n  ${user.name}, you now have ${user.food} foods` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break; 
+            case 'iron':
+                if(quantity<=user.iron)
+                {
+                    user.iron = user.iron-quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        msg.channel.send(`${quantity} irons were substracted\n  ${user.name}, you now have ${user.iron} irons` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break; 
+            case 'sword':
+                if(quantity<=user.sword)
+                {
+                    user.sword = user.sword-quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        msg.channel.send(`${quantity} swords were substracted\n  ${user.name}, you now have ${user.sword} swords` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break; 
+            case 'bow':
+                if(quantity<=user.bow)
+                {
+                    user.bow = user.bow-quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        msg.channel.send(`${quantity} bows were substracted\n  ${user.name}, you now have ${user.bow} bows` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break; 
+            case 'armor':
+                if(quantity<=user.armor)
+                {
+                    user.armor = user.armor-quantity;
+                    resp = await userController.updateUser(user);
+                    if(resp){
+                        msg.channel.send(`${quantity} armors were substracted\n  ${user.name}, you now have ${user.armor} armors` );
+                    }
+                }
+                else
+                {
+                    return msg.channel.send(`Not enough ${resource}`);
+                }
+            break; 
+            default:
+                    msg.channel.send("Unable to find this resource ");
+            break;
+        }
+    }
+    
+}
+
