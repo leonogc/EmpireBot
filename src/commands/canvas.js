@@ -1,53 +1,45 @@
 const Canvas = require('canvas');
 const Discord = require("discord.js");
-var inicio, vida1, vida2, fight, x = 0, n, critico = 150;
-var vida1 = 300;
-var vida2 = 300;
-var golpes = [
-    "socou",
-    "chutou",
-    "deu uma facada",
-    "deu uma garrafada",
-    "tacou a mãe",
-    "fez comer salada",
-    "deu uma barrigada",
-    "amassou",
-    "cuspiu na cara",
-    "robou o alimento",
-    "chamou de gordo",
-    "chingou de magro",
-    "deu uma caderada",
-    "chamou um vegano",
-    "deu leite desnatado",
-    "falou q a mãe nasceu pelada",
-    "mordeu",
-    "deu um Tapão"
-];
 
 const { registerFont } = require('canvas');
+const userController = require('./controllers/userController')
 // Fonts must be loaded from the filesystem
 registerFont('./src/img/PressStart.ttf', { family: 'PressStart', weight: 'normal' });
 
 exports.sendMessage = async(message, c, o) => {
-    
+    calcDamage = (qtdA, qtdW, oCastleLife)=>{
+        atkA = qtdA * 2;
+        atkW = qtdW * 4;
+        dps = atkA + atkW;
+        return oCastleLife / dps
+    }
+
+        
+}
+
+exports.help = (msg) => {
+    msg.channel.send('help');
+}
+
+battle = async()=>{
     try{
         let cName = message.author.username;
-        cName = cName.split('');
-        for (const l of cName) {
-            if (cName.length-1 > 2) {
-                cName.pop();
+        cNameS = cName.split('');
+        for (const l of cNameS) {
+            if (cNameS.length-1 > 2) {
+                cNameS.pop();
             }
         }
-        cName = cName.join('')
+        cName4 = cNameS.join('')
         //var member2 = msg.author.avatarURL;
         var oName = message.mentions.members.first().user.username;
-        oName = oName.split('');
-        for (const l of oName) {
-            if (oName.length-1 > 2) {
-                oName.pop();
+        oNameS = oName.split('');
+        for (const l of oNameS) {
+            if (oNameS.length-1 > 2) {
+                oNameS.pop();
             }
         }
-        oName = oName.join('')
+        oName4 = oNameS.join('')
         
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
@@ -65,11 +57,7 @@ exports.sendMessage = async(message, c, o) => {
         const cCastle = await Canvas.loadImage(`./src/img/castle${c}.png`);
         const oCastle = await Canvas.loadImage(`./src/img/castle${o}invert.png`);
         ctx.drawImage(cCastle, 30, 60, 140, 140);
-        ctx.drawImage(oCastle, 540, 60, 140, 140);
-
-        //const avatar = await Canvas.loadImage('./src/img/shop2.png');
-        // Move the image downwards vertically and constrain its height to 200, so it's a square
-        
+        ctx.drawImage(oCastle, 540, 60, 140, 140);        
         
         const avatar1 = await Canvas.loadImage(message.author.avatarURL);
         ctx.drawImage(avatar1, 0, 0, 50, 50);
@@ -81,27 +69,49 @@ exports.sendMessage = async(message, c, o) => {
         ctx.fillStyle = '#000';
         //ctx.strokeStyle = '#5f574f';
         ctx.lineWidth = 10;
-        ctx.fillText(oName, 500, 40);
-        ctx.fillText(cName, 68, 40);
-
-        const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
-        
-        let embedq = new Discord.RichEmbed()
-            .setImage(message.mentions.members.first().user.avatarURL)
-            .setColor('#275BF0')
-        const embed2 = {
+        ctx.fillText(oName4, 500, 40);
+        ctx.fillText(cName4, 68, 40);
+        //CC0000
+        //FFFF00
+        const battleEmbed = {
             color: 0x0099ff,
             title: '⚔ Battle ⚔',
-            author: {
-                name: 'EmpireBot',
-                icon_url: 'https://cdn.discordapp.com/attachments/592078256065478696/592875157052325899/empire3.png',
-            },
-            description: `Epic battle between ${message.author.username+" and "+message.mentions.members.first().user.username}`,
+            description: `
+                    Epic battle between ${cName+" and "+oName}
+                    \n ▶ Preparing army...
+                `,
             fields: [
                 {
-                    name: 'Inline field title',
-                    value: 'Some value here',
+                    name: `${cName} Army:`,
+                    value: `
+                        🏹X86  ⚔X85 
+                        \n ❤ Castle Life: 300
+                        \n 🏛 Empire level: 1 
+                    `,
                     inline: true,
+                },
+                {
+                    name: `<@!196037126914179072> Army:`,
+                    value: `
+                        🏹x86  ⚔x85 
+                        \n ❤ Castle Life: 300
+                        \n 🏛 Empire level: 1 
+                    `,
+                    inline: true,
+                },
+                {
+                    name: `Enemy resourses`,
+                    value: `
+                        🌲x19  🔗x90 🌕x78 🍗x3560   
+                    `,
+                    inline: false,
+                },
+                {   
+                    name: "Results",
+                    value: `
+                        🏆  You Won! and got 🌲x9  🔗x9 🌕x7 🍗x3  
+                    `,
+                    inline: false,
                 }
             ],
             timestamp: new Date(),
@@ -110,25 +120,18 @@ exports.sendMessage = async(message, c, o) => {
                 icon_url: 'https://cdn.discordapp.com/attachments/592078256065478696/592875157052325899/empire3.png',
             },
         };
-        message.channel.send('⚔ Battle begin ⚔', {
+
+        message.channel.send('⚔ Battle Results ⚔', {
             files: [{
                 attachment: canvas.toBuffer(),
-                name: 'file.jpg'
+                name: 'battle.jpg'
             }],
-            embed: embed2
-        }).then((msg)=> {
-            console.log(msg.embeds[0])
-            setTimeout(function(){
-              msg.edit(embed2)
-            }, 1000)
-          })
+            embed: battleEmbed
+        })
 
        //message.channel.send(`⚔ Battle begin ⚔`, attachment, embed);
-    }catch{
-        message.channel.send(`⚔ Olokinho meo ⚔`);
+    }catch (e){
+        message.channel.send(`⚔ Olokinho meo ⚔${e}`);
     }
-}
 
-exports.help = (msg) => {
-    msg.channel.send('help');
 }
