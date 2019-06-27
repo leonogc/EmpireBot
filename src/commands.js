@@ -2,8 +2,14 @@ const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
 const market = require('./commands/market.js')
+const canvas =require('./commands/canvas.js')
 
 exports.selectCommand = (message, args, client) =>{ 
+    if(args.startsWith('battle')){
+        canvas.sendMessage(message, 2, 3)
+        console.log('a');
+        
+    }
     if(args.startsWith('start')){
         if(args == 'start'){
             message.channel.send('Hello Warrior\nNow you need to choose your mainly resource:\n\nWood\nStone\nIron\nFood\n\nTo select yours use\n/emp start <resource>')
