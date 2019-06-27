@@ -1,8 +1,14 @@
 const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
+<<<<<<< HEAD
 const market = require('./commands/market.js')
 const canvas =require('./commands/canvas.js')
+=======
+const market = require('./commands/market.js');
+const craft = require('./commands/craft.js');
+const recruit = require('./commands/recruit.js');
+>>>>>>> 1f924422ddace16ad06989dcfc6775465ea1ccf7
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('battle')){
@@ -35,6 +41,14 @@ exports.selectCommand = (message, args, client) =>{
     {
         market.sellMarket(message,args)
     }
+    else if(args.startsWith('craft') && args.includes(" ") && args.length>5)
+    {
+        craft.craft(message,args)
+    } 
+    else if(args.startsWith('recruit') && args.includes(" ") && args.length>5)
+    {
+        recruit.recruit(message,args);
+    }
     else{
         switch (args) {
             case 'help':
@@ -54,8 +68,8 @@ exports.selectCommand = (message, args, client) =>{
             case 'loot <user>':
                 //
                 break; 
-            case 'sell <nick>':
-                //
+            case 'craft':
+                craft.craftList(message,client);
                 break;
             case 'trade <nick> <resource> <qtd> <resource2> <qtd2>':
                 //
@@ -64,13 +78,13 @@ exports.selectCommand = (message, args, client) =>{
                 //
                 break;
             case 'market':
-                market.botMarket(message,client)
+                market.botMarket(message,client);
                 break;
             case 'gm <recurso> <preco>':
                 //
                 break;
-            case 'recruit <type> <qtd>':
-                //
+            case 'recruit':
+                recruit.recruitList(message,client);
                 break;
             case 'expandempire':
                     userCommands.expandEmpire(message,args);
