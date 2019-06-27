@@ -1,4 +1,3 @@
-const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
 
@@ -12,8 +11,6 @@ const recruit = require('./commands/recruit.js');
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('battle')){
         canvas.sendMessage(message, 2, 3)
-        console.log('a');
-        
     }
     if(args.startsWith('start')){
         if(args == 'start'){
@@ -28,8 +25,6 @@ exports.selectCommand = (message, args, client) =>{
         }
     }
     else if(args.startsWith('castle')){
-        //console.log(message);
-        //console.log(args);
         userCommands.enemyStats(message, args);
     }
     else if(args.startsWith('buy'))
@@ -67,21 +62,12 @@ exports.selectCommand = (message, args, client) =>{
               break;
             case 'quest':
                 //
-                break;   
-            case 'loot':
-                //
-                break;  
-            case 'loot <user>':
-                //
-                break; 
+                break;    
             case 'craft':
                 craft.craftList(message,client);
                 break;
             case 'market':
                 market.botMarket(message,client);
-                break;
-            case 'gm <recurso> <preco>':
-                //
                 break;
             case 'recruit':
                 recruit.recruitList(message,client);

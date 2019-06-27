@@ -22,7 +22,7 @@ exports.tradeMessage = (message, args) => { //Called after /emp trade <mention> 
                 .setTitle(`Trade offer - ${message.author.username} wants to trade with ${message.mentions.members.first().user.username}`)
                 .setThumbnail(message.mentions.members.first().user.avatarURL)
                 .addBlankField(true)
-                .addField(`${message.author.username} offers ${quantof} ${offered} for ${quantwa} ${wanted}`,`**React to confirm or deny.**`)
+                .addField(`${message.author.username} offers ${quantof} ${offered} for ${quantwa} ${wanted}`,`**React to confirm or deny. You have 10 seconds**`)
                 .addBlankField(true)
                 .setFooter('@EmpireBot')
                 .setTimestamp();
@@ -32,8 +32,8 @@ exports.tradeMessage = (message, args) => { //Called after /emp trade <mention> 
                         .then(()=>{
                             msg.react('❌');
                         });
-                        ///// AWAIT Reactions - it waits 15 sec to collect the reaction
-                        msg.awaitReactions(filter, { time: 15000 })
+                        ///// AWAIT Reactions - it waits 10 sec to collect the reaction
+                        msg.awaitReactions(filter, { time: 10000 })
                             .then(collected => {
                 
                                 const reaction = collected.first();

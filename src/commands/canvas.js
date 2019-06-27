@@ -2,7 +2,7 @@ const Canvas = require('canvas');
 const Discord = require("discord.js");
 
 const { registerFont } = require('canvas');
-const userController = require('./controllers/userController')
+const userController = require('../controllers/userController')
 // Fonts must be loaded from the filesystem
 registerFont('./src/img/PressStart.ttf', { family: 'PressStart', weight: 'normal' });
 
