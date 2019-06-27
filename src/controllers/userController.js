@@ -76,3 +76,37 @@ exports.updateUser = async (user) =>{
         return false;
     }
 }
+
+exports.findResQuant = async(user, resource) => {
+    try{
+        condition = { _id: user.id};
+        switch(resource)
+        {
+            case 'wood':
+                projection = {_id:0,wood:1};
+                break;
+            case 'stone':
+                projection = {_id:0,stone:1};
+                break;
+            case 'iron':
+                projection = {_id:0,iron:1};
+                break;
+            case 'food':
+                projection = {_id:0,food:1};
+                break;
+            case 'armor':
+                projection = {_id:0,armor:1};
+                break;
+            case 'sword':
+                projection = {_id:0,sword:1};
+                break;
+            case 'bow':
+                projection = {_id:0,bow:1};
+                break;
+        }
+        return await User.findOne(condition, projection);
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}

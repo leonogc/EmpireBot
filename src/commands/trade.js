@@ -47,9 +47,8 @@ exports.tradeMessage = (message, args) => {
                                 
                             })
                             .catch( (err) => {
-                                //message.reply('you reacted with neither a yes or no. Canceling the trade.');
+                                message.reply('you reacted with neither a yes or no. Canceling the trade.');
                                 console.log(err);
-                                
                             });
                         //////
                     });
@@ -73,21 +72,113 @@ async function acceptTrade(message,targetId,quantof,quantwa,offered,wanted){
     let userMain = await userController.findById(message.author.id);
     let guest = await userController.findById(targetId);
 
-    changeValue(message,userMain,offered,quantof,'substract');
-    changeValue(message,guest,wanted,quantwa,'substract') 
+    var quantityResourceOf = await userController.findResQuant(userMain,offered);
+    quantityResourceOf = transformsToInt(quantityResourceOf);
+    
+    var quantityResourceWa = await userController.findResQuant(guest,wanted);
+    quantityResourceWa = transformsToInt(quantityResourceWa);
+    
+    if(compareQuantity(userMain,offered,quantof) && compareQuantity(guest,wanted,quantwa)){
+        await changeValue(message,userMain,offered,quantof,'substract');
+        await changeValue(message,guest,wanted,quantwa,'substract');
 
-    userMain = await userController.findById(message.author.id);
-    guest = await userController.findById(targetId)
-    .then(() => {                
-        changeValue(message,guest,offered,quantof,'add');
-        changeValue(message,userMain,wanted,quantwa,'add');
-    });
+        userMain = await userController.findById(message.author.id);
+        guest = await userController.findById(targetId)
+        .then(() => {                
+            changeValue(message,guest,offered,quantof,'add');
+            changeValue(message,userMain,wanted,quantwa,'add');
+        });
+    }
+    else{
+        message.channel.send(`One of you doesn't have enough resources.`);
+        return;
+    }
+    //console.log(quantityResourceOf);
+    //console.log(quantityResourceWa);
     
     message.reply(`${message.mentions.members.first().user.username} accepted your trade offer`);
 }
 
+//Message to deny the trade
 function denyTrade(message){
     message.reply(`${message.mentions.members.first().user.username} rejected your trade offer`);
+}
+
+//Transforms the bd return to int
+function transformsToInt(quantity){
+    quantity = quantity.toString().substring(1,quantity.toString().length-1).trim();
+    quantity = quantity.split(":");
+    return quantity = parseInt(quantity[1].trim());
+}
+
+//Compare the quantity of resources
+function compareQuantity(user,resource,tradeQuantity){
+    switch(resource)
+    {
+        case 'wood':
+                UserValue = user.wood;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+        case 'stone':
+                UserValue = user.stone;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+        case 'iron':
+                UserValue = user.iron;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+        case 'food':
+                UserValue = user.food;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+        case 'armor':
+                UserValue = user.armor;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+        case 'sword':
+                UserValue = user.sword;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+        case 'bow':
+            UserValue = user.bow;
+                if(UserValue >= tradeQuantity){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            break;
+    }
 }
 
 //operation -> add = add to user resources;  substract = substract the user resources
@@ -103,8 +194,7 @@ async function changeValue(msg,user,resource,quantity,operation){
                     if(resp){
                         return msg.channel.send(`${quantity} woods were added\n ${user.name}, you now have ${user.wood} woods` );
                     }
-                    msg.channel.send(`Not enough ${resource}`);
-                    throw new error("Not enough resource");
+                    return msg.channel.send(`Not enough ${resource}`);
             break;   
             case 'stone':                           
                     user.stone = user.stone+quantity;
