@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         require: true,
     },
-    soldiers:{
+    warriors:{
         type: Number,
         require: true,
     },

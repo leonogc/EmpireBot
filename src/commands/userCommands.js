@@ -12,7 +12,7 @@ exports.register = async (message, res) =>{
             stone : 0,
             iron : 0,
             food : 0,
-            soldiers : 0,
+            warriors : 0,
             archers : 0,
             armor : 0,
             sword : 0,
@@ -35,7 +35,7 @@ exports.userStats = async (message) => {
         message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\n\n
         **Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
         **Armament**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
-        **Army**\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}`);
+        **Army**\nWarriors: ${user.warriors}\nArchers: ${user.archers}`);
     }
 
 }
@@ -63,7 +63,7 @@ exports.enemyStats = async (message, args) => {
         message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\n\n
         **Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
         **Armament:**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
-        **Army:**\nSoldiers: ${user.soldiers}\nArchers: ${user.archers}\n\n
+        **Army:**\nWarriors: ${user.warriors}\nArchers: ${user.archers}\n\n
         **Availible to Loot:**\nWood: ${Math.floor(user.wood/10)}\nStone: ${Math.floor(user.stone/10)}\nIron: ${Math.floor(user.iron/10)}\nFood: ${Math.floor(user.food/10)}`);
     }
 }

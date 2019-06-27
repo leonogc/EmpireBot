@@ -1,8 +1,9 @@
 const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
-const market = require('./commands/market.js')
-const craft = require('./commands/craft.js')
+const market = require('./commands/market.js');
+const craft = require('./commands/craft.js');
+const recruit = require('./commands/recruit.js');
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('start')){
@@ -34,6 +35,10 @@ exports.selectCommand = (message, args, client) =>{
     {
         craft.craft(message,args)
     } 
+    else if(args.startsWith('recruit') && args.includes(" ") && args.length>5)
+    {
+        recruit.recruit(message,args);
+    }
     else{
         switch (args) {
             case 'help':
@@ -68,8 +73,8 @@ exports.selectCommand = (message, args, client) =>{
             case 'gm <recurso> <preco>':
                 //
                 break;
-            case 'recruit <type> <qtd>':
-                //
+            case 'recruit':
+                recruit.recruitList(message,client);
                 break;
             case 'expandempire':
                     userCommands.expandEmpire(message,args);

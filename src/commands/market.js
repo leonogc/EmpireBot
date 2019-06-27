@@ -62,7 +62,8 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money+((price[1]*qtd)* 100)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You sold "+ qtd + " woods \n" + " Now you have "+ (userc.money/100) +" gold and " + userc.wood + " woods" );
+                                    msg.channel.send("You sold "+ qtd + " woods");
+                                    msg.channel.send("Now you have "+userc.wood+" wood and " + (userc.money/100)  + " golds" );
                                 }
                             }
                             else
@@ -78,8 +79,9 @@ exports.sellMarket = async (msg,args) =>
                                 resp = await userController.updateUser(userc)
                                 
                                 if(resp){
-                                msg.channel.send("You sold "+ qtd + " stones \n" + " Now you have "+ (userc.money/100) +" gold and " + userc.stone + " stones" );
-                                }
+                                msg.channel.send("You sold "+ qtd + " stones ");
+                                msg.channel.send("Now you have "+userc.stone+" stones and " + (userc.money/100)  + " golds" );
+                            }
                             }
                             else
                             {
@@ -93,7 +95,8 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money+((price[5]*qtd)* 100)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You sold "+ qtd + " foods \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.food + " foods" );
+                                    msg.channel.send("You sold "+ qtd + " foods " );
+                                    msg.channel.send("Now you have "+userc.food+" foods and " + (userc.money/100)  + " golds" );
                                 }
                             }
                             else
@@ -108,7 +111,8 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money+((price[7]*qtd)* 100)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You sold "+ qtd + " irons \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.iron + " irons" );
+                                    msg.channel.send("You sold "+ qtd + " irons " );
+                                    msg.channel.send("Now you have "+userc.iron+" irons and " + (userc.money/100)  + " golds" );
                                 }
                             }
                             else
@@ -123,7 +127,8 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money+((price[9]*qtd)* 100)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You bought "+ qtd + " swords \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.sword + " swords" );
+                                    msg.channel.send("You bought "+ qtd + " swords " );
+                                    msg.channel.send("Now you have "+userc.sword+" swords and " + (userc.money/100)  + " golds" );
                                 }
                             }
                             else
@@ -138,7 +143,8 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money+((price[11]*qtd)* 100)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You sold "+ qtd + " bows \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.bow + " bows" );
+                                    msg.channel.send("You sold "+ qtd + " bows " );
+                                    msg.channel.send("Now you have "+userc.bow+" bows and " + (userc.money/100)  + " golds" );
                                 }
                             }
                             else
@@ -153,7 +159,8 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money+((price[13]*qtd)* 100)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You sold "+ qtd + " armors \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.armor + " armors" );
+                                    msg.channel.send("You sold "+ qtd + " armors " );
+                                    msg.channel.send("Now you have "+userc.armor+" armors and " + (userc.money/100)  + " golds" );
                                 }
                             }
                             else
@@ -199,10 +206,12 @@ exports.sellMarket = async (msg,args) =>
                             if(userc.money>=value)
                             {
                                 userc.wood=userc.wood+qtd;
-                                userc.money = userc.money-value * 100  
+                                userc.money = userc.money-value  
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                msg.channel.send("You bought "+ qtd + " woods \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.wood + " woods" );
+                                    msg.channel.send("You bought "+ qtd + " woods " );
+                                    msg.channel.send("Now you have "+userc.wood+" wood and " + (userc.money/100)  + " golds" );
+
                                 }
                             }
                             else
@@ -218,7 +227,9 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money-value   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                msg.channel.send("You bought "+ qtd + " stones \n" + "Now you have "+ (userc.money/100) +" golds and " + userc.stone +" stones");
+                                    msg.channel.send("You bought "+ qtd + " stones ");
+                                    msg.channel.send("Now you have "+userc.stone+" stones and " + (userc.money/100)  + " golds" );
+
                                 }
                             }
                             else
@@ -235,7 +246,9 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money-(value)   
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                msg.channel.send("You bought "+ qtd + " foods \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.food + " foods");
+                                msg.channel.send("You bought "+ qtd + " foods ");
+                                msg.channel.send("Now you have "+userc.food+" foods and " + (userc.money/100)  + " golds" );
+
                                 }
                             }
                             else
@@ -251,7 +264,9 @@ exports.sellMarket = async (msg,args) =>
                                 userc.money = userc.money-value
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                msg.channel.send("You bought "+ qtd + " irons \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.iron + " irons");
+                                msg.channel.send("You bought "+ qtd + " irons ");
+                                msg.channel.send("Now you have "+userc.iron+" irons and " + (userc.money/100) + " golds" );
+
                                 }
                             }
                             else
@@ -264,10 +279,12 @@ exports.sellMarket = async (msg,args) =>
                             if(userc.money>=value)
                             {
                                 userc.sword=userc.sword+qtd;
-                                userc.money = userc.money-value* 100  
+                                userc.money = userc.money-value  
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                msg.channel.send("You bought "+ qtd + " swords \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.sword + " swords");
+                                msg.channel.send("You bought "+ qtd + " swords ");
+                                msg.channel.send("Now you have "+userc.sword+" swords and " + (userc.money/100)  + " golds" );
+
                                 }
                             }
                             else
@@ -280,10 +297,12 @@ exports.sellMarket = async (msg,args) =>
                             if(userc.money>=value)
                             {
                                 userc.bow=userc.bow+qtd;
-                                userc.money = userc.money-value* 100  
+                                userc.money = userc.money-value  
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                msg.channel.send("You bought "+ qtd + " bows \n" + "Now you have "+ (userc.money/100) +" gold and " + userc.bow + " bows");
+                                msg.channel.send("You bought "+ qtd + " bows ");
+                                msg.channel.send("Now you have "+userc.bow+" bows and " + (userc.money/100)  + " golds" );
+
                                 }
                             }
                             else
@@ -296,11 +315,13 @@ exports.sellMarket = async (msg,args) =>
                             value=(price[12]*qtd)*100
                             if(userc.money>=value)
                             {
-                                userc.money = userc.money-value* 100   
+                                userc.money = userc.money-value   
                                 userc.armor=userc.armor+qtd;
                                 resp = await userController.updateUser(userc)
                                 if(resp){
-                                    msg.channel.send("You bought "+ qtd + " armors \n" + "Now you have "+ (userc.money/100) +" gold and" + userc.armor + " armors");
+                                    msg.channel.send("You bought "+ qtd + " armors  ");
+                                    msg.channel.send("Now you have "+userc.armor+" armors and " + (userc.money/100)  + " golds" );
+
                                 }
 
                             }

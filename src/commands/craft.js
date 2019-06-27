@@ -45,6 +45,8 @@ exports.craft = async (msg,args) =>
                             if(resp)
                             {
                                 msg.channel.send("You spent " + gsti + " irons to craft " + qtd + " armors");
+                                msg.channel.send("Now you have "+userc.armor+" armors and "+userc.iron+" irons" );
+
                             }
                         }
                         else
@@ -64,6 +66,7 @@ exports.craft = async (msg,args) =>
                             if(resp)
                             {
                                 msg.channel.send("You spent " + gsts + " stones and " + gstw + " woods to craft " + qtd + " bows");
+                                msg.channel.send("Now you have "+userc.bow+" bows, "+userc.stone+" stones and " + userc.wood+ " woods" );
                             }
                         }
                         else
@@ -83,6 +86,7 @@ exports.craft = async (msg,args) =>
                             if(resp)
                             {
                                 msg.channel.send("You spent " + gsti + " irons and " + gstw + " woods to craft " + qtd + " swords");
+                                msg.channel.send("Now you have "+userc.sword+" swords, "+userc.iron+" irons and " + userc.wood + " woods" );
                             }
                         }
                         else
