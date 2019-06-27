@@ -1,9 +1,9 @@
 const discord = require("discord.js");
 const usercontroller = require('../controllers/userController.js');
 
-const arm = [1,1,1,1]
+const arm = [1,1,1,1,1,1]
 //Mapa da Array
-// Warrior - Armor, Warrior - 
+// Warrior - Armor, Warrior - Sword, Warrior - Food, Archer - Armor, Archer - Bow, Archer - Food
 exports.recruitList = (msg,client) =>
 {
     embed = new discord.RichEmbed()
@@ -13,8 +13,8 @@ exports.recruitList = (msg,client) =>
     .setThumbnail('https://i.imgur.com/Z7Aqq4D.png')
     .setDescription('Recruit soldiers to expand your army')
     .setFooter('@EmpireBot')
-    .addField('🤺  **Warrior**', '**x** **'+ arm[0] +'** :shield: **Armor** &  ' + '  **x** **' + arm[1] + '** :crossed_swords: **Sword**')
-    .addField('😐🏹 **Archer**','**x** **'+ arm[2] +'** :shield: **Armor** &  ' + '  **x** **' + arm[3] + '** :bow_and_arrow: **Bow**')
+    .addField('🤺  **Warrior**', '**x** **'+ arm[0] +'** :shield: **Armor** &  ' + '  **x** **' + arm[1] + '** :crossed_swords: **Sword**\n & **x** **' + arm[2] +'** 🍗 **Food**')
+    .addField('😐🏹 **Archer**','**x** **'+ arm[3] +'** :shield: **Armor** &  ' + '  **x** **' + arm[4] + '** :bow_and_arrow: **Bow**\n & **x** **'+ arm[5] +'** 🍗 **Food**')
     .addBlankField()
     .addField('**Command**','/emp recruit <soldier> <quantity>')
     .addField('**Example**','/emp recruit warrior 2');
@@ -37,40 +37,44 @@ exports.recruit = async (msg,args) =>
                     case 'warrior':
                         gsta = arm[0]*qtd;
                         gsts = arm[1]*qtd;
-                        if(userc.armor >= gsta && userc.sword >= gsts){
+                        gstf = arm[2]*qtd;
+                        if(userc.armor >= gsta && userc.sword >= gsts && userc.food >= gstf){
                             userc.armor=userc.armor-gsta;
                             userc.sword = userc.sword - gsts;
+                            userc.food = userc.food - gstf;
                             userc.warriors = userc.warriors + qtd;
                             resp = await usercontroller.updateUser(userc);
                             if(resp)
                             {
-                                msg.channel.send("You spent " + gsta + " armors and " + gsts + " swords to recruit " + qtd + " warrior(s)");
-                                msg.channel.send("Now you have "+userc.warriors+" warriors, "+userc.sword+" swords and " + userc.armor+ " armors");
+                                msg.channel.send("You spent " + gsta + " armors, " + gstf +" foods and "+gsts + " swords to recruit " + qtd + " warrior(s)");
+                                msg.channel.send("Now you have "+userc.warriors+" warriors, " + userc.food  + " foods, "+userc.sword+" swords and " + userc.armor+ " armors");
                             }
                         }
                         else
                         {
-                            msg.channel.send("Not enough armor or sword, you need " + gsta + " armors and " + gsts + " swords" )
+                            msg.channel.send("Not enough armor, food or sword, you need " + gsta + " armors, "+ gstf + " foods and " + gsts + " swords" );
                             
                         }
                     break;
                     case 'archer':
-                        gsta = arm[2]*qtd;
-                        gstb = arm[3]*qtd;
-                        if(userc.armor >= gsta && userc.bow >= gstb){
+                        gsta = arm[3]*qtd;
+                        gstb = arm[4]*qtd;
+                        gstf = arm[5]*qtd;
+                        if(userc.armor >= gsta && userc.bow >= gstb && userc.food >= gstf){
                             userc.armor=userc.armor - gsta;
                             userc.bow = userc.bow - gstb;
+                            userc.food = userc.food - gstf;
                             userc.archers = userc.archers + qtd;
                             resp = await usercontroller.updateUser(userc);
                             if(resp)
                             {
-                                msg.channel.send("You spent " + gsta + " armors and " + gstb + " bows to recruit " + qtd + " archer(s)");
-                                msg.channel.send("Now you have "+userc.archers+" archers, "+userc.bow+" bows and " + userc.armor+ " armors");
+                                msg.channel.send("You spent " + gsta + " armors, " + gstf +" foods and " + gstb + " bows to recruit " + qtd + " archer(s)");
+                                msg.channel.send("Now you have "+userc.archers+" archers, " + userc.food + " foods, "+userc.bow+" bows and " + + userc.armor+ " armors");
                             }
                         }
                         else
                         {
-                            msg.channel.send("Not enough armor or bow, you need " + gsta + " armors and " + gstb + " bows" );
+                            msg.channel.send("Not enough armor, food or bow, you need " + gsta + " armors, "+ gstf + " foods and " + gstb + " bows" );
                         }
                     break;
                     default:
