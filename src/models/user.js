@@ -58,6 +58,10 @@ const UserSchema = new mongoose.Schema({
     bow:{
         type: Number,
         require: true,
+    },
+    campaignLevel:{
+        type: Number,
+        require: true,
     }
 });
 
