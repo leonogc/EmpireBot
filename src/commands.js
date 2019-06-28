@@ -9,11 +9,9 @@ const recruit = require('./commands/recruit.js');
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('battle')){
-        canvas.sendMessage(message, 2, 3)
-        console.log('a');
-        
+        canvas.sendMessage(message,client)
     }
-    if(args.startsWith('start')){
+    else if(args.startsWith('start')){
         if(args == 'start'){
             message.channel.send('Hello Warrior\nNow you need to choose your mainly resource:\n\nWood\nStone\nIron\nFood\n\nTo select yours use\n/emp start <resource>')
         }

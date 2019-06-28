@@ -10,14 +10,14 @@ const price=[100,100,100,100,100,100,100,100
 
 exports.botMarket= async (msg,client) => 
     {
+
         userc = await userController.findById(msg.author.id);
         if(userc==null)
         {
-            msg.channel.send('No User Found');
+            message.channel.send(" <@"+msg.author.id + "> , You isn't in the game\n Please type /emp start to join ")
         }
         else 
         {
-            console.log(userc);
             var embed = new discord.RichEmbed()
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor('ff0000')
@@ -44,155 +44,165 @@ exports.botMarket= async (msg,client) =>
         }
     }
 exports.sellMarket = async (msg,args) =>
-    {
-        userc = await userController.findById(msg.author.id);
-        money = userc.money/100;
-        lower = args.toLowerCase();
-        space =  lower.split(" ");
-        if(space.length>=2){
-            resource = space[1].toString();
-            if(space.length == 3){
-                qtd =parseInt(space[2]);
-                if(!isNaN(qtd)){
-                    switch(resource)
+    { 
+        if(usercontroller.userExists(msg.author.id))
+        {
+            userc = await userController.findById(msg.author.id);
+            money = userc.money/100;
+            lower = args.toLowerCase();
+            space =  lower.split(" ");
+            if(space.length>=2){
+                resource = space[1].toString();
+                if(space.length == 3){
+                    qtd =parseInt(space[2]);
+                    if(!isNaN(qtd)){
+                        switch(resource)
+                        {
+                            case 'wood':
+                                if(qtd<=userc.wood)
+                                {
+                                    userc.wood = userc.wood-qtd;
+                                    userc.money = userc.money+((price[1]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    if(resp){
+                                        msg.channel.send("You sold "+ qtd + " woods");
+                                        msg.channel.send("Now you have "+userc.wood+" wood and " + (userc.money/100)  + " golds" );
+                                    }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break;   
+                            case 'stone':                           
+                                if(qtd<=userc.stone)
+                                {
+                                    userc.stone = userc.stone-qtd;
+                                    userc.money = userc.money+((price[3]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    
+                                    if(resp){
+                                    msg.channel.send("You sold "+ qtd + " stones ");
+                                    msg.channel.send("Now you have "+userc.stone+" stones and " + (userc.money/100)  + " golds" );
+                                }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break;  
+                            case 'food':
+                                if(qtd<=userc.food)
+                                {
+                                    userc.food = userc.food-qtd;
+                                    userc.money = userc.money+((price[5]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    if(resp){
+                                        msg.channel.send("You sold "+ qtd + " foods " );
+                                        msg.channel.send("Now you have "+userc.food+" foods and " + (userc.money/100)  + " golds" );
+                                    }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break; 
+                            case 'iron':
+                                if(qtd<=userc.iron)
+                                {
+                                    userc.iron = userc.iron-qtd;
+                                    userc.money = userc.money+((price[7]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    if(resp){
+                                        msg.channel.send("You sold "+ qtd + " irons " );
+                                        msg.channel.send("Now you have "+userc.iron+" irons and " + (userc.money/100)  + " golds" );
+                                    }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break; 
+                            case 'sword':
+                                if(qtd<=userc.sword)
+                                {
+                                    userc.sword = userc.sword-qtd;
+                                    userc.money = userc.money+((price[9]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    if(resp){
+                                        msg.channel.send("You bought "+ qtd + " swords " );
+                                        msg.channel.send("Now you have "+userc.sword+" swords and " + (userc.money/100)  + " golds" );
+                                    }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break; 
+                            case 'bow':
+                                if(qtd<=userc.bow)
+                                {
+                                    userc.bow = userc.bow-qtd;
+                                    userc.money = userc.money+((price[11]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    if(resp){
+                                        msg.channel.send("You sold "+ qtd + " bows " );
+                                        msg.channel.send("Now you have "+userc.bow+" bows and " + (userc.money/100)  + " golds" );
+                                    }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break; 
+                            case 'armor':
+                                if(qtd<=userc.armor)
+                                {
+                                    userc.armor = userc.armor-qtd;
+                                    userc.money = userc.money+((price[13]*qtd)* 100)   
+                                    resp = await userController.updateUser(userc)
+                                    if(resp){
+                                        msg.channel.send("You sold "+ qtd + " armors " );
+                                        msg.channel.send("Now you have "+userc.armor+" armors and " + (userc.money/100)  + " golds" );
+                                    }
+                                }
+                                else
+                                {
+                                    msg.channel.send("Not enough "+ resource);
+                                }
+                            break; 
+                            default:
+                                    msg.channel.send("Unable to find this resource ");
+                            break;
+                        }
+                    }
+                    else
                     {
-                        case 'wood':
-                            if(qtd<=userc.wood)
-                            {
-                                userc.wood = userc.wood-qtd;
-                                userc.money = userc.money+((price[1]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                if(resp){
-                                    msg.channel.send("You sold "+ qtd + " woods");
-                                    msg.channel.send("Now you have "+userc.wood+" wood and " + (userc.money/100)  + " golds" );
-                                }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break;   
-                        case 'stone':                           
-                            if(qtd<=userc.stone)
-                            {
-                                userc.stone = userc.stone-qtd;
-                                userc.money = userc.money+((price[3]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                
-                                if(resp){
-                                msg.channel.send("You sold "+ qtd + " stones ");
-                                msg.channel.send("Now you have "+userc.stone+" stones and " + (userc.money/100)  + " golds" );
-                            }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break;  
-                        case 'food':
-                            if(qtd<=userc.food)
-                            {
-                                userc.food = userc.food-qtd;
-                                userc.money = userc.money+((price[5]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                if(resp){
-                                    msg.channel.send("You sold "+ qtd + " foods " );
-                                    msg.channel.send("Now you have "+userc.food+" foods and " + (userc.money/100)  + " golds" );
-                                }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break; 
-                        case 'iron':
-                            if(qtd<=userc.iron)
-                            {
-                                userc.iron = userc.iron-qtd;
-                                userc.money = userc.money+((price[7]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                if(resp){
-                                    msg.channel.send("You sold "+ qtd + " irons " );
-                                    msg.channel.send("Now you have "+userc.iron+" irons and " + (userc.money/100)  + " golds" );
-                                }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break; 
-                        case 'sword':
-                            if(qtd<=userc.sword)
-                            {
-                                userc.sword = userc.sword-qtd;
-                                userc.money = userc.money+((price[9]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                if(resp){
-                                    msg.channel.send("You bought "+ qtd + " swords " );
-                                    msg.channel.send("Now you have "+userc.sword+" swords and " + (userc.money/100)  + " golds" );
-                                }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break; 
-                        case 'bow':
-                            if(qtd<=userc.bow)
-                            {
-                                userc.bow = userc.bow-qtd;
-                                userc.money = userc.money+((price[11]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                if(resp){
-                                    msg.channel.send("You sold "+ qtd + " bows " );
-                                    msg.channel.send("Now you have "+userc.bow+" bows and " + (userc.money/100)  + " golds" );
-                                }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break; 
-                        case 'armor':
-                            if(qtd<=userc.armor)
-                            {
-                                userc.armor = userc.armor-qtd;
-                                userc.money = userc.money+((price[13]*qtd)* 100)   
-                                resp = await userController.updateUser(userc)
-                                if(resp){
-                                    msg.channel.send("You sold "+ qtd + " armors " );
-                                    msg.channel.send("Now you have "+userc.armor+" armors and " + (userc.money/100)  + " golds" );
-                                }
-                            }
-                            else
-                            {
-                                msg.channel.send("Not enough "+ resource);
-                            }
-                        break; 
-                        default:
-                                msg.channel.send("Unable to find this resource ");
-                        break;
+                        msg.channel.send("Type a number");
                     }
                 }
                 else
                 {
-                    msg.channel.send("Type a number");
+                    msg.channel.send("Type the quantity of resource");
+
                 }
             }
             else
             {
-                msg.channel.send("Type the quantity of resource");
-
+                msg.channel.send("Type the resource");
             }
-        }
-        else
-        {
-            msg.channel.send("Type the resource");
-        }
+    }
+    else
+    {
+        message.channel.send(" <@"+msg.author.id + "> , You isn't in the game\n Please type /emp start to join ")
+    }
+        
     }
     exports.buyMarket = async (msg,args) =>
-    {
-        userc = await userController.findById(msg.author.id);
+    { 
+        if(usercontroller.userExists(msg.author.id))
+        {
+            userc = await userController.findById(msg.author.id);
         money = userc.money/100;
         lower = args.toLowerCase();
         space =  lower.split(" ");
@@ -352,4 +362,10 @@ exports.sellMarket = async (msg,args) =>
         {
             msg.channel.send("Type the resource");
         }
+        }
+        else
+        {
+            message.channel.send(" <@"+msg.author.id + "> , You isn't in the game\n Please type /emp start to join ")
+        }
+       
     }
