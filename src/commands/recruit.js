@@ -6,28 +6,41 @@ const arm = [1,1,1,1,1,1]
 // Warrior - Armor, Warrior - Sword, Warrior - Food, Archer - Armor, Archer - Bow, Archer - Food
 exports.recruitList = (msg,client) =>
 {
-    embed = new discord.RichEmbed()
-    .setAuthor(client.user.username,client.user.avatarURL)
-    .setColor('ff0000')
-    .setTimestamp(msg.createdAt)
-    .setThumbnail('https://i.imgur.com/Z7Aqq4D.png')
-    .setDescription('Recruit soldiers to expand your army')
-    .setFooter('@EmpireBot')
-    .addField('🤺  **Warrior**', '**x** **'+ arm[0] +'** :shield: **Armor** &  ' + '  **x** **' + arm[1] + '** :crossed_swords: **Sword**\n & **x** **' + arm[2] +'** 🍗 **Food**')
-    .addField('😐🏹 **Archer**','**x** **'+ arm[3] +'** :shield: **Armor** &  ' + '  **x** **' + arm[4] + '** :bow_and_arrow: **Bow**\n & **x** **'+ arm[5] +'** 🍗 **Food**')
-    .addBlankField()
-    .addField('**Command**','/emp recruit <soldier> <quantity>')
-    .addField('**Example**','/emp recruit warrior 2');
+    if(usercontroller.userExists(msg.author.id))
+    {
+        embed = new discord.RichEmbed()
+        .setAuthor(client.user.username,client.user.avatarURL)
+        .setColor('ff0000')
+        .setTimestamp(msg.createdAt)
+        .setThumbnail('https://i.imgur.com/Z7Aqq4D.png')
+        .setDescription('Recruit soldiers to expand your army')
+        .setFooter('@EmpireBot')
+        .addField('🤺  **Warrior**', '**x** **'+ arm[0] +'** :shield: **Armor** &  ' + '  **x** **' + arm[1] + '** :crossed_swords: **Sword**\n & **x** **' + arm[2] +'** 🍗 **Food**')
+        .addField('😐🏹 **Archer**','**x** **'+ arm[3] +'** :shield: **Armor** &  ' + '  **x** **' + arm[4] + '** :bow_and_arrow: **Bow**\n & **x** **'+ arm[5] +'** 🍗 **Food**')
+        .addBlankField()
+        .addField('**Troop damage**','🤺 **Warrior** - 4 \n 😐🏹 **Archer** - 2 ')
+        .addBlankField()
+        .addField('**Command**','/emp recruit <soldier> <quantity>',true)
+        .addField('**Example**','/emp recruit warrior 2');
 
-    msg.channel.send(embed);
+        msg.channel.send(embed);
+    }
+    else
+    {
+        message.channel.send(" <@"+msg.author.id + "> , You isn't in the game\n Please type /emp start to join ")
+    }
+        
+    
 }
 
 exports.recruit = async (msg,args) =>
-{
-    userc = await usercontroller.findById(msg.author.id);
-    lower = args.toLowerCase();
-    space =  lower.split(" ");
-    soldier = space[1].toString();
+{ 
+    if(usercontroller.userExists(msg.author.id))
+    {
+        userc = await usercontroller.findById(msg.author.id);
+        lower = args.toLowerCase();
+        space =  lower.split(" ");
+        soldier = space[1].toString();
         if(space.length == 3){    
             qtd =parseInt(space[2]);
             if(!isNaN(qtd))
@@ -91,4 +104,10 @@ exports.recruit = async (msg,args) =>
         {
             msg.channel.send('Type the quantity of soldiers')
         }
+    }
+    else
+    {
+        message.channel.send(" <@"+msg.author.id + "> , You isn't in the game\n Please type /emp start to join ")
+    }
+   
 }
