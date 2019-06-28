@@ -1,6 +1,7 @@
-const castle = require('./castle.js');
 const msgHelp = require('./commands/help.js');
 const userCommands = require('./commands/userCommands.js');
+
+const trade = require('./commands/trade.js');
 const globalMarketCommands = require('./commands/globalMarketCommands.js');
 const canvas =require('./commands/canvas.js')
 const market = require('./commands/market.js');
@@ -9,7 +10,10 @@ const recruit = require('./commands/recruit.js');
 
 exports.selectCommand = (message, args, client) =>{ 
     if(args.startsWith('battle')){
+
         canvas.sendMessage(message,client)
+
+
     }
     else if(args.startsWith('start')){
         if(args == 'start'){
@@ -24,8 +28,6 @@ exports.selectCommand = (message, args, client) =>{
         }
     }
     else if(args.startsWith('castle')){
-        //console.log(message);
-        //console.log(args);
         userCommands.enemyStats(message, args);
     }
     else if(args.startsWith('buy'))
@@ -47,6 +49,10 @@ exports.selectCommand = (message, args, client) =>{
     {
         recruit.recruit(message,args);
     }
+    else if(args.startsWith('trade'))
+    {
+        trade.tradeMessage(message,args);
+    }
     else{
         switch (args) {
             case 'help':
@@ -59,27 +65,12 @@ exports.selectCommand = (message, args, client) =>{
               break;
             case 'quest':
                 //
-                break;   
-            case 'loot':
-                //
-                break;  
-            case 'loot <user>':
-                //
-                break; 
+                break;    
             case 'craft':
                 craft.craftList(message,client);
                 break;
-            case 'trade <nick> <resource> <qtd> <resource2> <qtd2>':
-                //
-                break;
-            case 'ctrade <nick>':
-                //
-                break;
             case 'market':
                 market.botMarket(message,client);
-                break;
-            case 'gm <recurso> <preco>':
-                //
                 break;
             case 'recruit':
                 recruit.recruitList(message,client);

@@ -1,6 +1,10 @@
 const mongoose = require('../database/index.js');
 
 const GlobalMarketSchema = new mongoose.Schema({
+    offerId:{
+        type: Number,
+        required: true
+    },
     ownerDiscordId:{
         type: Number,
         required: true,
@@ -20,7 +24,7 @@ const GlobalMarketSchema = new mongoose.Schema({
         required: true,
     },
     quantity:{
-        type: String,
+        type: Number,
         required: true,
     },
     price:{

@@ -30,8 +30,7 @@ const comms =   '```fix\n'+
                 '```css\n'+
                 '#Market ```\n'+
                 '**buy <resource> <quantity>** - Buy from merchant (Bot)\n'+
-                '**trade <nick> <resource> <quantity> <resource2> <quantity2>** -Starts a trade with another player \n'+
-                '**ctrade <nick>**  - Confirms a trade proposal\n '+
+                '**trade <nick> <quantity> <resource> <quantity2> <resource2>** -Starts a trade with another player \n'+
                 '**gm <resource> <price>** -  Adds a product in the global market\n ' +
                 '**market** - Opens the bot store\n '+
                 '**sell <resource> <quantity>** - sell the resource to the merchant\n\n'+

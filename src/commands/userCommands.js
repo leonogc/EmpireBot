@@ -18,7 +18,8 @@ exports.register = async (message, res) =>{
             sword : 0,
             bow : 0,
             claimDate : null,
-            empireLevel: 1
+            empireLevel: 1,
+            campaignLevel : 1
         };
         userController.registerUser(user);
         message.channel.send(`${user.name} you choose ${user.resource}`);
