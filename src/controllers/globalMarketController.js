@@ -2,7 +2,8 @@ const GlobalMarket = require("../models/globalMarket");
 
 exports.findTop10 = async () => {
     try {
-        return await GlobalMarket.find()
+        condition = {active: true};
+        return await GlobalMarket.find(condition)
         .limit(10)
         .sort({ price: 1 })
     } catch (err) {
@@ -12,7 +13,7 @@ exports.findTop10 = async () => {
 
 exports.findTop10Category = async (res) => {
     try {
-        condition = {resource : res};
+        condition = {resource : res, active: true};
         return await GlobalMarket.find(condition)
         .limit(10)
         .sort({ price: 1 })
@@ -45,8 +46,17 @@ exports.updateOffer = async (globalMarket) =>{
 
 exports.findOffer = async (globalId) => {
     try{
-        condition = {_id : globalId};
+        condition = {offerId : globalId, active : true};
         return await GlobalMarket.findOne(condition);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+exports.findLastId = async () =>{
+    try{
+        return await GlobalMarket.findOne()
+        .sort({ offerId: -1 });
     }catch(err){
         console.log(err);
     }
