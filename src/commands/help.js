@@ -40,15 +40,16 @@ const comms =   '```fix\n'+
                 '**sell <resource> <quantity>** - Sell the resource to the merchant (Bot)\n\n'+
 
                 '```cs\n'+
-                '#Inquisition ```\n'+
+                '#Battle ```\n'+
                 '**battle** - Invades the bot\'s castle\n '+
                 '**battle <user>** - Invades the user\'s castle\n '+
                 '**recruit** - List of soldier avaliable to recruit\n '+
                 '**recruit <type> <qtd>** - recruit soldiers in exchange for resources\n\n '+
                 '```diff\n'+
                 '#Craft ```\n'+
-                '**craft <resource> <quantity>** - Craft a armament\n'+
-                '**craft** - List of crafts \n';
+                '**craft** - List of crafts \n'+
+                '**craft <resource> <quantity>** - Craft an armament\n';
+                
                
                
                
