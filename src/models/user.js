@@ -62,6 +62,14 @@ const UserSchema = new mongoose.Schema({
     campaignLevel:{
         type: Number,
         require: true,
+    },
+    wins:{
+        type: Number,
+        require: true,
+    },
+    defeats:{
+        type: Number,
+        require: true,
     }
 });
 

@@ -19,7 +19,9 @@ exports.register = async (message, res) =>{
             bow : 0,
             claimDate : null,
             empireLevel: 1,
-            campaignLevel : 1
+            campaignLevel : 1,
+            wins : 0,
+            defeats : 0
         };
         userController.registerUser(user);
         message.channel.send(`${user.name} you choose ${user.resource}`);
@@ -30,13 +32,37 @@ exports.register = async (message, res) =>{
 
 exports.userStats = async (message) => {
     user = await userController.findById(message.author.id);
+    var nobattle=user.defeats+user.wins;
     if(user == null){
         message.channel.send('No User Found');
     }else{
-        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\n\n
+        if(nobattle!=0)
+        {
+            var winrate=100*(user.wins/nobattle).toFixed(2);
+        }
+        else
+        {
+            var winrate=0;
+
+        }
+        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\nCampaign Level ${user.campaignLevel}\n\n
+        **Battle:**\n Wins: ${user.wins}\n Defeats: ${user.defeats}\n Winrate: ${ winrate}% `);
+
+    }
+
+}
+exports.castle = async (message) => {
+    user = await userController.findById(message.author.id);
+    if(user == null){
+        message.channel.send('No User Found');
+    }
+    else{
+      
+        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\nCampaign Level ${user.campaignLevel}\n\n
         **Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
-        **Armament**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
-        **Army**\nWarriors: ${user.warriors}\nArchers: ${user.archers}`);
+        **Armament:**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n 
+        **Army:**\nWarriors: ${user.warriors}\nArchers: ${user.archers}`);
+
     }
 
 }
@@ -61,7 +87,7 @@ exports.enemyStats = async (message, args) => {
     }else{
         //**Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
         // **Armament:**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
-        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\n\n
+        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\nCampaign Level ${user.campaignLevel}\n
         **Army:**\nWarriors: ${user.warriors}\nArchers: ${user.archers}\n\n
         **Availible to Loot:**\nWood: ${Math.floor(user.wood/10)}\nStone: ${Math.floor(user.stone/10)}\nIron: ${Math.floor(user.iron/10)}\nFood: ${Math.floor(user.food/10)}`);
     }
@@ -130,7 +156,7 @@ exports.expandEmpire = async (message,args) => {
             message.channel.send(`Not enough resources. You need at least ${resourceNeeded[empireLevel-1]} of each to upgrade!`);
         }
         else{
-            message.channel.send("You've reached the max level.");
+            message.channel.send("You've reached max level.");
         }
     }
 }
