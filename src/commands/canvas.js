@@ -12,10 +12,11 @@ calcDamage = (qtdA, qtdW, oCastleLife)=>{
     dps = atkA + atkW;
     return oCastleLife + dps
 }
-exports.sendMessage = async(message,client) => {
+exports.battle = async(message,client) => {
     try{
         var user = await userController.findById(message.author.id);
         var usero = await userController.findById(message.mentions.members.first().user.id)
+       
         if(user != null)
         {   
             if(message.mentions.members.first().user.id != client.user.id)
@@ -26,13 +27,9 @@ exports.sendMessage = async(message,client) => {
                     {
                         let cName = message.author.username;
                         cNameS = cName.split('');
-                        for (const l of cNameS) {
-                            if (cNameS.length-1 > 2) {
-                                cNameS.pop();
-                            }
-                        }
-                        cName4 = cNameS.join('')
-                        //var member2 = msg.author.avatarURL;
+                        
+                        cName4 = cName.substring(0,4)
+                         //var member2 = msg.author.avatarURL;
                         var oName = message.mentions.members.first().user.username;
                         oNameS = oName.split('');
                         for (const l of oNameS) {
@@ -40,8 +37,7 @@ exports.sendMessage = async(message,client) => {
                                 oNameS.pop();
                             }
                         }
-                        oName4 = oNameS.join('');
-
+                        oName4 = oName.substring(0,4);
                         var el = user.empireLevel;
                         var elo = usero.empireLevel;
                         var life = 150 * Math.pow(2,user.empireLevel);
@@ -77,11 +73,28 @@ exports.sendMessage = async(message,client) => {
                         ctx.drawImage(cCastle, 30, 60, 140, 140);
                         ctx.drawImage(oCastle, 540, 60, 140, 140);        
                         
-                        const avatar1 = await Canvas.loadImage(message.author.avatarURL);
-                        ctx.drawImage(avatar1, 0, 0, 50, 50);
+                        if(message.author.avatarURL!=null)
+                        {
+                            const avatar1 = await Canvas.loadImage(message.author.avatarURL);
+                            ctx.drawImage(avatar1, 0, 0, 50, 50);
+                        }
+                        else
+                        {
+                            const avatar1 = await Canvas.loadImage('https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/discord-512.png');
+                            ctx.drawImage(avatar1, 0, 0, 50, 50);
+                        }
+                        
+                        if(message.mentions.members.first().user.avatarURL!=null)
+                        {
+                            const avatar2 = await Canvas.loadImage(message.mentions.members.first().user.avatarURL);
+                            ctx.drawImage(avatar2, 650, 0, 50, 50);
+                        }
+                        else
+                        {                      
+                              const avatar2 = await Canvas.loadImage('https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/discord-512.png');
+                              ctx.drawImage(avatar2, 650, 0, 50, 50);
+                        }
 
-                        const avatar2 = await Canvas.loadImage(message.mentions.members.first().user.avatarURL);
-                        ctx.drawImage(avatar2, 650, 0, 50, 50);
                         // Writing text
                         ctx.font = '32px PressStart';
                         ctx.fillStyle = '#000';
@@ -155,11 +168,13 @@ exports.sendMessage = async(message,client) => {
                                         user.stone = user.stone + stoneo;
                                         user.iron = user.iron + irono;
                                         user.food = user.food + foodo;  
+                                        user.wins++;
 
                                         usero.wood = usero.wood - woodo;
                                         usero.stone = usero.stone - stoneo;
                                         usero.iron = usero.iron - irono;
                                         usero.food = usero.food - foodo;
+                                        usero.defeats++;
 
                                         var archer = Math.floor(Math.random()*(user.archers-(user.archers/2)));
                                         var warrior = Math.floor(Math.random()*(user.warriors-(user.warriors/2)));
@@ -242,11 +257,13 @@ exports.sendMessage = async(message,client) => {
                                         user.stone = user.stone - stone;
                                         user.iron = user.iron - iron;
                                         user.food = user.food - food;  
+                                        usero.defeats++;
 
                                         usero.wood = usero.wood + wood;
                                         usero.stone = usero.stone + stone;
                                         usero.iron = usero.iron + iron;
                                         usero.food = usero.food + food;
+                                        usero.wins++;
 
                                         var archer = Math.floor(Math.random()*(user.archers-(user.archers/2)));
                                         var warrior = Math.floor(Math.random()*(user.warriors-(user.warriors/2)));

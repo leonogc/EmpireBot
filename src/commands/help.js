@@ -34,7 +34,7 @@ const comms =   '```fix\n'+
                 '**trade <nick> <quantity> <resource> <quantity2> <resource2>** -Starts a trade with another player \n'+
                 '**gm show** - Show offers in the global market \n'+
                 '**gm show <resource>** - Show offers of certain resource in the global market \n'+
-                '**gm sell <resource> <quantity> <price> confirm** - Show offers in the global market \n'+
+                '**gm sell <resource> <quantity> <price>** - Sell offers in the global market \n'+
                 '**gm buy <offerId>** -  Buy a offer from global market\n ' +
                 '**market** - Opens the bot store\n '+
                 '**sell <resource> <quantity>** - Sell the resource to the merchant (Bot)\n\n'+
@@ -43,7 +43,6 @@ const comms =   '```fix\n'+
                 '#Inquisition ```\n'+
                 '**battle** - Invades the bot\'s castle\n '+
                 '**battle <user>** - Invades the user\'s castle\n '+
-                '**quest** - List of active quests\n '+
                 '**recruit** - List of soldier avaliable to recruit\n '+
                 '**recruit <type> <qtd>** - recruit soldiers in exchange for resources\n\n '+
                 '```diff\n'+

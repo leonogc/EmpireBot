@@ -7,13 +7,11 @@ const canvas =require('./commands/canvas.js')
 const market = require('./commands/market.js');
 const craft = require('./commands/craft.js');
 const recruit = require('./commands/recruit.js');
+const campaign = require('./commands/campaign.js');
 
 exports.selectCommand = (message, args, client) =>{ 
-    if(args.startsWith('battle')){
-
-        canvas.sendMessage(message,client)
-
-
+    if(args.startsWith('battle') && args.includes(" ") && args.length>7){
+        canvas.battle(message,client)
     }
     else if(args.startsWith('start')){
         if(args == 'start'){
@@ -57,20 +55,15 @@ exports.selectCommand = (message, args, client) =>{
         switch (args) {
             case 'help':
                 msgHelp.helpMessage(message, client);
-              //
               break;
             case 'stats':
                 userCommands.userStats(message);
-              //
-              break;
-            case 'quest':
-                //
-                break;    
+              break;   
             case 'craft':
                 craft.craftList(message,client);
                 break;
             case 'castle':
-                userCommands.userStats(message, args);
+                userCommands.castle(message);
                 break;
             case 'market':
                 market.botMarket(message,client);
@@ -79,12 +72,13 @@ exports.selectCommand = (message, args, client) =>{
                 recruit.recruitList(message,client);
                 break;
             case 'expandempire':
-                    userCommands.expandEmpire(message,args);
-                //
+                userCommands.expandEmpire(message,args);
                 break;
             case 'claim':
                 userCommands.claim(message);
-                //
+                break;
+            case 'battle':
+                campaign.battle(message,client);
                 break;
             default:
                     msgHelp.CNRMessage(message);
