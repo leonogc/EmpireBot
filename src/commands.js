@@ -27,7 +27,7 @@ exports.selectCommand = (message, args, client) =>{
             }
         }
     }
-    else if(args.startsWith('castle')){
+    else if(args.startsWith('castle') && args.includes(" ") && args.length>7){
         userCommands.enemyStats(message, args);
     }
     else if(args.startsWith('buy'))
@@ -41,11 +41,11 @@ exports.selectCommand = (message, args, client) =>{
     else if(args.startsWith('gm')){
         globalMarketCommands.GlobalMarket(message, args, client);
     }
-    else if(args.startsWith('craft') && args.includes(" ") && args.length>5)
+    else if(args.startsWith('craft') && args.includes(" ") && args.length>6)
     {
         craft.craft(message,args)
     } 
-    else if(args.startsWith('recruit') && args.includes(" ") && args.length>5)
+    else if(args.startsWith('recruit') && args.includes(" ") && args.length>8)
     {
         recruit.recruit(message,args);
     }
@@ -68,6 +68,9 @@ exports.selectCommand = (message, args, client) =>{
                 break;    
             case 'craft':
                 craft.craftList(message,client);
+                break;
+            case 'castle':
+                userCommands.userStats(message, args);
                 break;
             case 'market':
                 market.botMarket(message,client);

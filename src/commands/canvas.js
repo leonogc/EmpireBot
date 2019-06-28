@@ -134,8 +134,8 @@ exports.sendMessage = async(message,client) => {
                             ],
                             timestamp: new Date(),
                             footer: {
-                                text: 'Awesome battle',
-                                icon_url: 'https://cdn.discordapp.com/attachments/592078256065478696/592875157052325899/empire3.png',
+                                text: '@EmpireBot',
+                                icon_url: 'https://i.imgur.com/tbzriFR.png',
                             },
                         };
 
@@ -204,11 +204,11 @@ exports.sendMessage = async(message,client) => {
                                                 },
                                                 {
                                                     name:"  **Results**", 
-                                                    value:`🏆  <@${message.author.id}> Won! and got 🌲x${woodo} 🔗x${irono} 🌕x${stoneo} 🍗x${foodo}`,
+                                                    value:`🏆  <@${message.author.id}> Won! and got 🌲x${woodo} 🔗x${irono} 🌕x${stoneo} 🍗x${foodo}\n  `,
                                                     inline:true
                                                 },
                                                 {
-                                                    name:"**Returned troops**", 
+                                                    name:"🚶🚶 **Returned troops**", 
                                                     value:`Your brave soldiers returned, but, as in all battles there may be casualties, you lost ${archer} archers and ${warrior} warriors \n 
                                                     Now you have ${user.archers} archers and ${user.warriors} warriors `,
                                                     inline:false
@@ -291,11 +291,11 @@ exports.sendMessage = async(message,client) => {
                                                 },
                                                 {
                                                     name:"Results", 
-                                                    value:`❌  <@${message.author.id}> Lose! and lost 🌲x${wood} 🔗x${iron} 🌕x${stone} 🍗x${food}`,
+                                                    value:`❌  <@${message.author.id}> Lose! and lost 🌲x${wood} 🔗x${iron} 🌕x${stone} 🍗x${food}\n`,
                                                     inline:false
                                                 },
                                                 {
-                                                    name:"**Returned troops**", 
+                                                    name:"🚶🚶 **Returned troops**", 
                                                     value:`Your brave soldiers returned, but, as in all battles there may be casualties, you lost ${archer} archers and ${warrior} warriors \n 
                                                     Now you have ${user.archers} archers and ${user.warriors} warriors `,
                                                     inline:false
@@ -363,11 +363,11 @@ exports.sendMessage = async(message,client) => {
                                                 },
                                                 {
                                                     name:"Results", 
-                                                    value:`🏆  Tie! Nodoby won resource`,
+                                                    value:`🤝  Tie! Nodoby earned resource\n`,
                                                     inline:false
                                                 },
                                                 {
-                                                    name:"**Returned troops**", 
+                                                    name:"🚶🚶 **Returned troops**", 
                                                     value:`Your brave soldiers returned, but, as in all battles there may be casualties, you lost ${archer} archers and ${warrior} warriors \n 
                                                     Now you have ${user.archers} archers and ${user.warriors} warriors `,
                                                     inline:false
@@ -386,7 +386,7 @@ exports.sendMessage = async(message,client) => {
                                             embed: embed
                                         });
 
-                                        msg.channel.send("<@"+message.mentions.members.first().user.avatarURL + "> You was attacked and lost " + archero + " archers and " + warrioro + " warriors\n Now your army have " 
+                                        msg.channel.send("<@"+message.mentions.members.first().user.id + "> You was attacked and lost " + archero + " archers and " + warrioro + " warriors\n Now your army have " 
                                         + usero.archers + " archers and " + usero.warriors + " warriors");
                                     }
                                 }, 10000)}); 

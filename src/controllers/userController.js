@@ -5,8 +5,7 @@ exports.registerUser = async(user) => {
         const userRegistered = User.create(user);
         await userRegistered;
 
-        //console.log('Sucesso!');
-        //console.log(userRegistered);
+
         return;
     }catch(err){
         return console.log('Error:' + err);

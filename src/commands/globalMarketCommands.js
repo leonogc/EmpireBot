@@ -16,7 +16,7 @@ exports.GlobalMarket = async(message, args, client) =>{
         .addField('**To show resource offers**','Command: /emp show <resource> \n Example: /emp show wood',true)
         .addField('**To sell**','Command: /emp gm sell <resource> <quantity> <price> \n Example: /emp gm sell stone 10 10',true)
         .addField('**To buy**','Command: /emp gm buy <offerId>\n Example: /emp gm buy 1',true)
-        .setFooter('@EmpireBot')
+        .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png')
         .setTimestamp(message.createdAt);
 
         return message.channel.send(embed);
@@ -155,7 +155,8 @@ exports.GlobalShow = async (message, args, client) =>{
         .setURL()
         .setThumbnail('https://i.imgur.com/79ViU3x.png')
         .setDescription('Buy resources\nIn the GLOBAL MARKET\n\n')
-        .addBlankField();
+        .addBlankField()
+        .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png');
 
         res.forEach(offer => {
             embed.addField(`Id: ${offer.offerId} : ${offer.ownerDiscordUsername}`, `${offer.quantity}x of ${offer.resource}: ${offer.price/100} golds`, true);
@@ -184,7 +185,8 @@ exports.GlobalShow = async (message, args, client) =>{
         .setURL()
         .setThumbnail('https://i.imgur.com/79ViU3x.png')
         .setDescription(`Buy ${args[1].toLowerCase()}\nIn the GLOBAL MARKET\n\n`)
-        .addBlankField();
+        .addBlankField()
+        .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png');
     
         res.forEach(offer => {
             embed.addField(`Id: ${offer.offerId} : ${offer.ownerDiscordUsername}`, `${offer.quantity}x of ${offer.resource}: ${offer.price/100} golds`, true);

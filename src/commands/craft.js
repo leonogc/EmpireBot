@@ -15,7 +15,7 @@ exports.craftList = (msg,client) =>
         .setTimestamp(msg.createdAt)
         .setThumbnail('https://i.imgur.com/ks4cSHV.png')
         .setDescription('Craft list')
-        .setFooter('@EmpireBot')
+        .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png')
         .addField(':crossed_swords:  **Sword**', '**x** **'+ resc[0] +'** :evergreen_tree: **Wood** &  ' + '  **x** **' + resc[1] + '** :link: **Iron**')
         .addField(':bow_and_arrow:  **Bow**','**x** **'+ resc[2] +'** :evergreen_tree: **Wood** &  ' + '  **x** **' + resc[3] + '** :full_moon: **Stone**')
         .addField(':shield:  **Armor**','**x** **' + resc[4] + '** :link: **Iron**')

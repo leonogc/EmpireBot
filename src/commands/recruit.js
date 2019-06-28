@@ -14,7 +14,7 @@ exports.recruitList = (msg,client) =>
         .setTimestamp(msg.createdAt)
         .setThumbnail('https://i.imgur.com/Z7Aqq4D.png')
         .setDescription('Recruit soldiers to expand your army')
-        .setFooter('@EmpireBot')
+        .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png')
         .addField('🤺  **Warrior**', '**x** **'+ arm[0] +'** :shield: **Armor** &  ' + '  **x** **' + arm[1] + '** :crossed_swords: **Sword**\n & **x** **' + arm[2] +'** 🍗 **Food**')
         .addField('😐🏹 **Archer**','**x** **'+ arm[3] +'** :shield: **Armor** &  ' + '  **x** **' + arm[4] + '** :bow_and_arrow: **Bow**\n & **x** **'+ arm[5] +'** 🍗 **Food**')
         .addBlankField()

@@ -24,7 +24,7 @@ exports.tradeMessage = (message, args) => { //Called after /emp trade <mention> 
                 .addBlankField(true)
                 .addField(`${message.author.username} offers ${quantof} ${offered} for ${quantwa} ${wanted}`,`**React to confirm or deny. You have 10 seconds**`)
                 .addBlankField(true)
-                .setFooter('@EmpireBot')
+                .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png')
                 .setTimestamp();
                 message.channel.send(embed)
                     .then(msg => {

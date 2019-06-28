@@ -37,7 +37,7 @@ exports.botMarket= async (msg,client) =>
             .addField('**Captions**',':inbox_tray: - Buy    :outbox_tray: - Sell ')
             .addField('**To buy**','Command: /emp buy <resource> <quantity> \n Example: /emp buy wood 12',true)
             .addField('**To sell**','Command: /emp sell <resource> <quantity> \n Example: /emp sell stone 3',true)
-            .setFooter('@EmpireBot')
+            .setFooter('@EmpireBot','https://i.imgur.com/tbzriFR.png')
             .setTimestamp(msg.createdAt);
 
             msg.channel.send(embed);
