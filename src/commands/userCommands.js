@@ -57,11 +57,71 @@ exports.castle = async (message) => {
         message.channel.send('No User Found');
     }
     else{
-      
-        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\nCampaign Level ${user.campaignLevel}\n\n
-        **Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
-        **Armament:**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n 
-        **Army:**\nWarriors: ${user.warriors}\nArchers: ${user.archers}`);
+        let battleEmbed = {
+            color: 0x0099ff,
+            title: `${user.name}`,
+            description: `
+                    ${user.empireLevel == 1 ? 'A Young Emperor': user.empireLevel == 2 ? 'A Grandiose Emperor' : 'A Legendary Emperor'}\r
+                    ⚒ Mainly Resource: ${user.resource}
+                    \r 💰 Money: $${user.money/100}
+                    \r 🏛 Empire Level: ${user.empireLevel}
+                    \r 🚩 Campaign Level: ${user.campaignLevel}
+            `,
+            thumbnail: {
+                url: `
+                    ${user.empireLevel == 1 ? 'https://i.imgur.com/ykZvt2P.png': user.empireLevel == 2 ? 'https://i.imgur.com/2bFtdic.png' : 'https://i.imgur.com/uis7NjO.png'}
+                `,
+            },
+            fields: [
+                {
+                    name: `Resourses:`,
+                    value: `
+                        🌲x${user.wood} 🔗x${user.iron} 🌕x${user.stone} 🍗x${user.food}
+                    `,
+                    inline: true,
+                },
+                {
+                    name: `Armament:`,
+                    value: `
+                        🛡: x${user.armor}  ⚔: x${user.sword} 🏹: x${user.bow}
+                    `,
+                    inline: true,
+                },
+                {
+                    name: `Army:`,
+                    value: `
+                        ⚔ Warriors: x${user.warriors}  🏹 Archers: x${user.archers} 
+                    `,
+                    inline: true,
+                }
+            ],
+            timestamp: new Date(),
+            footer: {
+                text: '@EmpireBot',
+                icon_url: 'https://i.imgur.com/tbzriFR.png',
+            },
+        };
+        // message.channel.send(`
+        //     **__${user.name}__**
+        //         \nMainly Resource: ${user.resource}
+        //         \nMoney: $${user.money/100}
+        //         \nEmpire Level: ${user.empireLevel}
+        //         \nCampaign Level ${user.campaignLevel}\n\n
+        //     **Resources:**
+        //         \nWood: ${user.wood}
+        //         \nStone: ${user.stone}
+        //         \nIron: ${user.iron}
+        //         \nFood: ${user.food}\n\n
+        //     **Armament:**
+        //         \nArmor: ${user.armor}
+        //         \nSword: ${user.sword}
+        //         \nBow: ${user.bow}\n\n 
+        //     **Army:**
+        //         \nWarriors: ${user.warriors}
+        //         \nArchers: ${user.archers}`);
+        message.channel.send({
+            embed: battleEmbed
+        });
 
     }
 
