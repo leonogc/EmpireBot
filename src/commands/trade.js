@@ -46,7 +46,7 @@ exports.tradeMessage = (message, args) => { //Called after /emp trade <mention> 
                                 
                             })
                             .catch( (err) => {
-                                message.reply('you reacted with neither a yes or no. Canceling the trade.');
+                                message.reply(`<@${message.mentions.members.first().user.id}> reacted with neither a yes or no. cancelling the trade.`);
                                 console.log(err);
                             });
                         //////
