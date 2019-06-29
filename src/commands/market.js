@@ -2,8 +2,8 @@ const discord = require("discord.js");
 const userController = require('../controllers/userController.js');
 
 
-const price=[100,100,100,100,100,100,100,100
-            ,100,100,100,100,100,100]
+const price=[200,50,150,30,250,60,200,50
+            ,675,175,675,175,625,200]
         //Mapa da array
         /*[compra madeira, vende madeira, compra ferro, vende ferro, compra pedra, vende pedra, compra comida, vende comida
             compra espada, vende espada, compra arco, vende arco, compra armadura, vende armadura ]*/

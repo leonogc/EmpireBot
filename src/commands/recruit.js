@@ -1,7 +1,7 @@
 const discord = require("discord.js");
 const usercontroller = require('../controllers/userController.js');
 
-const arm = [1,1,1,1,1,1]
+const arm = [1,2,7,1,1,5]
 //Mapa da Array
 // Warrior - Armor, Warrior - Sword, Warrior - Food, Archer - Armor, Archer - Bow, Archer - Food
 exports.recruitList = (msg,client) =>

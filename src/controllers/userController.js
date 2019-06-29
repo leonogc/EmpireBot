@@ -36,7 +36,7 @@ exports.findById = async (discordId) => {
 
 exports.claimResource = async (user, time_now, times) => {
     try{
-        resourceLevel = [10,15,20];
+        resourceLevel = [15,20,25];
         condition = { _id : user.id};
         user.claimDate = time_now;
         switch(user.resource){

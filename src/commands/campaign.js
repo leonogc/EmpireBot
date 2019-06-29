@@ -3,8 +3,8 @@ const Discord = require("discord.js");
 
 const { registerFont } = require('canvas');
 
-const botres= [1,1,1,1,1,1];
-const botTitle = ['Beginner','','','','Great','','','','',''];
+const botres= [100,75,100,125,15,20];
+const botTitle = ['Noob','Beginner','','','Great','','','','',''];
 
 const userController = require('../controllers/userController')
 // Fonts must be loaded from the filesystem

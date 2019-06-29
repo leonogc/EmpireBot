@@ -1,7 +1,7 @@
 const usercontroller = require('../controllers/userController.js');
 const discord = require('discord.js')
 
-const resc = [1,1,1,1,1];
+const resc = [1,3,2,1,4];
 //Mapa da array
 // Sword - Wood, Sword - Iron, Bow - Wood, Bow - Stone, Armor - Iron
 
