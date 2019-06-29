@@ -1,5 +1,9 @@
 <h1 align = 'center'>EmpireBot </h1>
 
+<p align='center'>
+  <img alt='EmpireBot' src='https://i.imgur.com/tbzriFR.png'>
+</p>
+
 This is a Discord Bot for **Discord HackWeek 2019**. <br/>
 Created by [@IgorKenzo](https://github.com/IgorKenzo) [@Luker64](https://github.com/Luker64) [@rfgvieira](https://github.com/rfgvieira) [@ZoeiroVader](https://github.com/ZoeiroVader)
 <br/><br/>
@@ -21,7 +25,7 @@ And to get stronger you can expand your empire, being able to get more resources
 
 ## Commands
 
-Every command must starts with ```/emp```
+Every command must starts with ```/emp ```
 
 ### Info Commands
 <br/>
@@ -251,6 +255,13 @@ Every command must starts with ```/emp```
       </tbody>
   </table>
 <br/>
+
+## Screenshots
+
+### Battle Screenshot
+<p align='center'>
+   <img alt='EmpireBot' src='https://i.imgur.com/eDhn7nW.png'>
+</p>
 
 ## Contribute
 
