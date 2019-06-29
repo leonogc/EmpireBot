@@ -8,7 +8,9 @@ This is a Discord Bot for **Discord HackWeek 2019**. <br/>
 Created by [@IgorKenzo](https://github.com/IgorKenzo) [@Luker64](https://github.com/Luker64) [@rfgvieira](https://github.com/rfgvieira) [@ZoeiroVader](https://github.com/ZoeiroVader)
 <br/><br/>
   
-To use this bot, join the [EmpireBot Official Server](https://discord.gg/QuxASne)
+To use this bot, join the EmpireBot Official Server
+<br/>
+[![Discord](https://img.shields.io/discord/594294774144565268.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/QuxASne)
 <br/>
 Or [invite it to your own server](https://discordapp.com/oauth2/authorize?client_id=592816206248149002&scope=bot&permissions=248896)
 
