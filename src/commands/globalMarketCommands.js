@@ -199,54 +199,76 @@ exports.GlobalShow = async (message, args, client) =>{
 }
 
 exports.GlobalBuy = async (message, args) => {
-    if(args.length == 1){
-        return message.channel.send('<@' + message.author.id + '> To buy in the global market use:\n```/emp gm buy <resource> <quantity> <price> <username>```');
-    }
-    if(args.length != 2){
-        return message.channel.send('<@' + message.author.id + '> To buy in the global market use:\n```/emp gm buy <offerId>```');
-    }
-    offerId = Number(args[1]);
-    if(isNaN(offerId)){
-        return message.channel.send(`<@${message.author.id}>, Offer Id not found`);
-    }
-    offer = await globalMarketController.findOffer(offerId);
-    priceInf = Number(offer.price);
-    if(offer != null){
-        let user  = await userController.findById(message.author.id);
-        if(!(user.money >= priceInf)){
-            return message.channel.send(`<@${message.author.id}>, you don't have enough money`);
+    try{
+        if(args.length == 1){
+            return message.channel.send('<@' + message.author.id + '> To buy in the global market use:\n```/emp gm buy <resource> <quantity> <price> <username>```');
         }
-        //Realizar a Compra
-        let ownerUser = await userController.findById(offer.ownerDiscordId);
+        if(args.length != 2){
+            return message.channel.send('<@' + message.author.id + '> To buy in the global market use:\n```/emp gm buy <offerId>```');
+        }
+        offerId = Number(args[1]);
+        if(isNaN(offerId)){
+            return message.channel.send(`<@${message.author.id}>, Offer Id not found`);
+        }
+        offer = await globalMarketController.findOffer(offerId);
         
-        user.money = user.money - offer.price;
-        switch(offer.resource){
-            case 'wood':
-                user.wood = user.wood + offer.quantity;
-                break;
-            case 'stone':
-                user.stone = user.stone + offer.quantity;
-                break;
-            case 'iron':
-                user.iron = user.iron + offer.quantity;
-                break;
-            case 'food':
-                user.food = user.food + offer.quantity;
-                break;
-            case 'sword':
-                user.sword = user.sword + offer.quantity;
-                break;
-            case 'bow':
-                user.wood = user.wood + offer.quantity;
-                break;
-            case 'armor':
-                user.armor = user.armor + offer.quantity;
-                break;
-        }
+        if(offer != null){
+            priceInf = Number(offer.price);
+            let user  = await userController.findById(message.author.id);
+            if(!(user.money >= priceInf)){
+                return message.channel.send(`<@${message.author.id}>, you don't have enough money`);
+            }
+            //Realizar a Compra
+            let ownerUser = await userController.findById(offer.ownerDiscordId);
+            
+            user.money = user.money - offer.price;
+            switch(offer.resource){
+                case 'wood':
+                    user.wood = user.wood + offer.quantity;
+                    break;
+                case 'stone':
+                    user.stone = user.stone + offer.quantity;
+                    break;
+                case 'iron':
+                    user.iron = user.iron + offer.quantity;
+                    break;
+                case 'food':
+                    user.food = user.food + offer.quantity;
+                    break;
+                case 'sword':
+                    user.sword = user.sword + offer.quantity;
+                    break;
+                case 'bow':
+                    user.wood = user.wood + offer.quantity;
+                    break;
+                case 'armor':
+                    user.armor = user.armor + offer.quantity;
+                    break;
+            }
 
-        if(ownerUser.discordId == user.discordId){
-            user.money = user.money + offer.price;
+            if(ownerUser.discordId == user.discordId){
+                user.money = user.money + offer.price;
+                resp = userController.updateUser(user);
+                if(!(resp)){
+                    return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
+                }
+                offer.active = false;
+                offer.buyerDiscordId = user.discordId;
+                offer.buyerDiscordUsername = user.username;
+                resp = globalMarketController.updateOffer(offer);
+                if(!(resp)){
+                    return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
+                }
+                return message.channel.send(`<@${message.author.id}> you got your ${offer.quantity}x ${offer.resource} back from the global market`);
+            }
+
+            ownerUser.money = ownerUser.money + offer.price;
+
             resp = userController.updateUser(user);
+            if(!(resp)){
+                return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
+            }
+            resp = userController.updateUser(ownerUser);
             if(!(resp)){
                 return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
             }
@@ -257,28 +279,14 @@ exports.GlobalBuy = async (message, args) => {
             if(!(resp)){
                 return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
             }
-            return message.channel.send(`<@${message.author.id}> you got your ${offer.quantity}x ${offer.resource} back from the global market`);
+            return message.channel.send(`<@${message.author.id}> bought ${offer.quantity}x ${offer.resource} from ${offer.ownerDiscordUsername} for ${offer.price/100} golds`);
+        } 
+        else{
+            return message.channel.send(`<@${message.author.id}>, Offer Id not found`);
         }
-
-        ownerUser.money = ownerUser.money + offer.price;
-
-        resp = userController.updateUser(user);
-        if(!(resp)){
-            return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
-        }
-        resp = userController.updateUser(ownerUser);
-        if(!(resp)){
-            return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
-        }
-        offer.active = false;
-        offer.buyerDiscordId = user.discordId;
-        offer.buyerDiscordUsername = user.username;
-        resp = globalMarketController.updateOffer(offer);
-        if(!(resp)){
-            return message.channel.send(`<@${message.author.id}>, an Error ocurred, try again later`);
-        }
-        return message.channel.send(`<@${message.author.id}> bought ${offer.quantity}x ${offer.resource} from ${offer.ownerDiscordUsername} for ${offer.price/100} golds`);
-    } else{
-        return message.channel.send(`<@${message.author.id}>, Offer Id not found`);
+    }
+    catch(e)
+    {
+        message.channel.send(`An error has ocurred, please check if you mentioned a person. For more info check /emp help`); 
     }
 }

@@ -51,7 +51,6 @@ exports.sellMarket = async (msg,args) =>
             money = userc.money/100;
             lower = args.toLowerCase();
             space =  lower.split(" ");
-            console.log(args);
             if(space.length>=2){
                 resource = space[1].toString();
                 if(space.length == 3){
@@ -79,7 +78,7 @@ exports.sellMarket = async (msg,args) =>
                                 if(qtd<=userc.stone)
                                 {
                                     userc.stone = userc.stone-qtd;
-                                    userc.money = userc.money+((price[3]*qtd)* 100)   
+                                    userc.money = userc.money+((price[5]*qtd)* 100)   
                                     resp = await userController.updateUser(userc)
                                     
                                     if(resp){
@@ -96,7 +95,7 @@ exports.sellMarket = async (msg,args) =>
                                 if(qtd<=userc.food)
                                 {
                                     userc.food = userc.food-qtd;
-                                    userc.money = userc.money+((price[5]*qtd)* 100)   
+                                    userc.money = userc.money+((price[7]*qtd)* 100)   
                                     resp = await userController.updateUser(userc)
                                     if(resp){
                                         msg.channel.send("You sold "+ qtd + " foods " );
@@ -112,7 +111,7 @@ exports.sellMarket = async (msg,args) =>
                                 if(qtd<=userc.iron)
                                 {
                                     userc.iron = userc.iron-qtd;
-                                    userc.money = userc.money+((price[7]*qtd)* 100)   
+                                    userc.money = userc.money+((price[3]*qtd)* 100)   
                                     resp = await userController.updateUser(userc)
                                     if(resp){
                                         msg.channel.send("You sold "+ qtd + " irons " );
@@ -233,7 +232,7 @@ exports.sellMarket = async (msg,args) =>
                             }
                         break;   
                         case 'stone':
-                            value = (price[2]*qtd)*100
+                            value = (price[4]*qtd)*100
                             if(userc.money>=value)
                             {
                                 userc.stone=userc.stone+qtd;
@@ -252,7 +251,7 @@ exports.sellMarket = async (msg,args) =>
                             }
                         break;  
                         case 'food':
-                            value = (price[4]*qtd)*100
+                            value = (price[6]*qtd)*100
                             if(userc.money>=value)
                             {
                                 userc.food= userc.food + qtd;
@@ -270,7 +269,7 @@ exports.sellMarket = async (msg,args) =>
                             }
                         break; 
                         case 'iron':
-                            value = (price[6]*qtd)*100
+                            value = (price[2]*qtd)*100
                             if(userc.money>=value)
                             {                         
                                 userc.iron=userc.iron+qtd;
