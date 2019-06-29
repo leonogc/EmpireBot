@@ -145,11 +145,60 @@ exports.enemyStats = async (message, args) => {
     if(user == null){
         return message.channel.send('No User Found');
     }else{
-        //**Resources:**\nWood: ${user.wood}\nStone: ${user.stone}\nIron: ${user.iron}\nFood: ${user.food}\n\n
-        // **Armament:**\nArmor: ${user.armor}\nSword: ${user.sword}\nBow: ${user.bow}\n\n
-        message.channel.send(`**__${user.name}__**\nMainly Resource: ${user.resource}\nMoney: $${user.money/100}\nEmpire Level: ${user.empireLevel}\nCampaign Level ${user.campaignLevel}\n
-        **Army:**\nWarriors: ${user.warriors}\nArchers: ${user.archers}\n\n
-        **Availible to Loot:**\nWood: ${Math.floor(user.wood/10)}\nStone: ${Math.floor(user.stone/10)}\nIron: ${Math.floor(user.iron/10)}\nFood: ${Math.floor(user.food/10)}`);
+        let battleEmbed = {
+            color: 0x0099ff,
+            title: `${user.name}`,
+            description: `
+                    ${user.empireLevel == 1 ? 'A Young Emperor': user.empireLevel == 2 ? 'A Grandiose Emperor' : 'A Legendary Emperor'}\r
+                    ⚒ Mainly Resource: ${user.resource}
+                    \r 💰 Money: $${user.money/100}
+                    \r 🏛 Empire Level: ${user.empireLevel}
+                    \r 🚩 Campaign Level: ${user.campaignLevel}
+            `,
+            thumbnail: {
+                url: `
+                    ${user.empireLevel == 1 ? 'https://i.imgur.com/ykZvt2P.png': user.empireLevel == 2 ? 'https://i.imgur.com/2bFtdic.png' : 'https://i.imgur.com/uis7NjO.png'}
+                `,
+            },
+            fields: [
+                {
+                    name: `Army:`,
+                    value: `
+                        ⚔ Warriors: x${user.warriors}  🏹 Archers: x${user.archers} 
+                    `,
+                    inline: true,
+                },
+                {
+                    name: `Avaliable to loot:`,
+                    value: `
+                        🌲x${Math.floor(user.wood/10)} 🔗x${Math.floor(user.iron/10)} 🌕x${Math.floor(user.stone/10)} 🍗x${Math.floor(user.food/10)}
+                    `,
+                    inline: true,
+                },
+            ],
+            timestamp: new Date(),
+            footer: {
+                text: '@EmpireBot',
+                icon_url: 'https://i.imgur.com/tbzriFR.png',
+            },
+        };
+        message.channel.send({
+            embed: battleEmbed
+        });
+        message.channel.send(`
+            **__${user.name}__**
+                \nMainly Resource: ${user.resource}
+                \nMoney: $${user.money/100}
+                \nEmpire Level: ${user.empireLevel}
+                \nCampaign Level ${user.campaignLevel}\n
+            **Army:**
+                \nWarriors: ${user.warriors}
+                \nArchers: ${user.archers}\n\n
+            **Availible to Loot:**
+                \nWood: ${Math.floor(user.wood/10)}
+                \nStone: ${Math.floor(user.stone/10)}
+                \nIron: ${Math.floor(user.iron/10)}
+                \nFood: ${Math.floor(user.food/10)}`);
     }
 }
 
