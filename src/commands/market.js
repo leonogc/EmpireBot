@@ -45,12 +45,13 @@ exports.botMarket= async (msg,client) =>
     }
 exports.sellMarket = async (msg,args) =>
     { 
-        if(usercontroller.userExists(msg.author.id))
+        if(userController.userExists(msg.author.id))
         {
             userc = await userController.findById(msg.author.id);
             money = userc.money/100;
             lower = args.toLowerCase();
             space =  lower.split(" ");
+            console.log(args);
             if(space.length>=2){
                 resource = space[1].toString();
                 if(space.length == 3){
@@ -200,7 +201,7 @@ exports.sellMarket = async (msg,args) =>
     }
     exports.buyMarket = async (msg,args) =>
     { 
-        if(usercontroller.userExists(msg.author.id))
+        if(userController.userExists(msg.author.id))
         {
             userc = await userController.findById(msg.author.id);
         money = userc.money/100;

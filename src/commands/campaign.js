@@ -32,7 +32,7 @@ exports.battle = async(message,client) => {
 
             var el = user.empireLevel;
             var life = 150 * Math.pow(2,user.empireLevel);
-            var lifeo = 100 + (user.campaignLevel-1) * 300;
+            var lifeo = 300 + (user.campaignLevel-1) * 300;
             
             var woodb = botres[0] * user.campaignLevel;
             var ironb = botres[1] * user.campaignLevel;
@@ -292,7 +292,6 @@ exports.battle = async(message,client) => {
         }
     }
     catch (e){
-        message.channel.send(`⚔ Olokinho meo ⚔ ${e}`);
-    }
+        message.channel.send(`An error has ocurred, please check if you mentioned a person. For more info check /emp help`);    }
 
 }

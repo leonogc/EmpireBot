@@ -430,7 +430,7 @@ exports.battle = async(message,client) => {
         }
     }
     catch (e){
-        message.channel.send(`⚔ Olokinho meo ⚔ ${e}`);
+        message.channel.send(`An error has ocurred, please check if you mentioned a person. For more info check /emp help`);    
     }
 
 }
