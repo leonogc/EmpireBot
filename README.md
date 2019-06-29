@@ -262,7 +262,7 @@ Every command must starts with ```/emp ```
 
 ### Battle Screenshot
 <p align='center'>
-   <img alt='EmpireBot' src='https://i.imgur.com/eDhn7nW.png'>
+   <img alt='EmpireBot' src='https://i.imgur.com/yhd1Wd6.png'>
 </p>
 
 ## Contribute
