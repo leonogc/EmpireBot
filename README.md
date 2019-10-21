@@ -5,7 +5,7 @@
 </p>
 
 This is a Discord Bot for **Discord HackWeek 2019**. <br/>
-Created by [@IgorKenzo](https://github.com/IgorKenzo) [@Luker64](https://github.com/Luker64) [@rfgvieira](https://github.com/rfgvieira) [@ZoeiroVader](https://github.com/ZoeiroVader)
+Created by [@IgorKenzo](https://github.com/IgorKenzo) [@Luker64](https://github.com/Luker64) [@rfgvieira](https://github.com/rfgvieira) [@Sarky](https://github.com/gpsx)
 <br/><br/>
   
 To use this bot, [join the EmpireBot Official Server](https://discord.gg/QuxASne)
